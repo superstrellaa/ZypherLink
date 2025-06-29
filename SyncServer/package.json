@@ -1,0 +1,30 @@
+{
+  "name": "syncserver",
+  "version": "1.0.0",
+  "description": "Backend API for ZypherLink multiplayer framework",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "express",
+    "api",
+    "multiplayer",
+    "backend",
+    "unity"
+  ],
+  "author": "superstrellaa",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^17.0.0",
+    "joi": "^17.13.3",
+    "uuid": "^11.1.0",
+    "winston": "^3.17.0",
+    "winston-daily-rotate-file": "^5.0.0",
+    "ws": "^8.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}

@@ -1,0 +1,4 @@
+module.exports = {
+  SERVER_PING_INTERVAL_MS: 10000,
+  SERVER_PING_TIMEOUT_MS: 5000,
+};
