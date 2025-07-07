@@ -2,7 +2,6 @@
 
 <p align="center">
   <img src="https://img.shields.io/github/issues/superstrellaa/ZypherLink" alt="Issues">
-  <img src="https://img.shields.io/github/pulls/superstrellaa/ZypherLink" alt="Pull Requests">
   <img src="https://img.shields.io/github/license/superstrellaa/ZypherLink" alt="License">
   <img src="https://img.shields.io/github/last-commit/superstrellaa/ZypherLink" alt="Last Commit">
   <img src="https://img.shields.io/github/languages/top/superstrellaa/ZypherLink" alt="Top Language">

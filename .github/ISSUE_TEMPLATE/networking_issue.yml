@@ -1,0 +1,62 @@
+name: Networking Issue
+description: Report sync, latency, packet loss or other networking-related problems
+title: "[NET] "
+labels:
+  - networking
+body:
+  - type: dropdown
+    id: side
+    attributes:
+      label: Affected Side
+      description: Which part of the project is involved?
+      options:
+        - Backend (SyncServer)
+        - Client (ZeroPing)
+        - Both
+      default: 0
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Issue Description
+      description: Describe the networking issue in detail
+    validations:
+      required: true
+
+  - type: textarea
+    id: symptoms
+    attributes:
+      label: Observed Symptoms
+      description: Describe how the issue affects gameplay or communication (e.g. lag spikes, player desync)
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Explain how to reproduce the issue if possible
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Network Logs / Data
+      description: Provide relevant logs or debug output
+
+  - type: input
+    id: client_version
+    attributes:
+      label: Client Version
+      placeholder: e.g. v1.2.3
+
+  - type: input
+    id: server_version
+    attributes:
+      label: Server Version
+      placeholder: e.g. v1.2.3
+
+  - type: textarea
+    id: misc
+    attributes:
+      label: Miscellaneous Info
+      description: Any other context or useful information

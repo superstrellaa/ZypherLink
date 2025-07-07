@@ -26,6 +26,9 @@ public class ThirdPersonCamera : MonoBehaviour
 
     void LateUpdate()
     {
+        if (GUIManager.Instance != null && GUIManager.Instance.IsGUIOpen)
+            return;
+
         yaw += Input.GetAxis("Mouse X") * rotationSpeed;
         pitch -= Input.GetAxis("Mouse Y") * rotationSpeed;
         pitch = Mathf.Clamp(pitch, minPitch, maxPitch);

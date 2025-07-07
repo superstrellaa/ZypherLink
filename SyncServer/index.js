@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { createServer } = require("./core/server");
-const logger = require("./config/logger");
+const logger = require("./utils/logger");
 
 // Start WebSocket server
 createServer();

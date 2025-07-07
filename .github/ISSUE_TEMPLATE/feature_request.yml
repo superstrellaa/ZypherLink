@@ -1,0 +1,45 @@
+name: Feature Request
+description: Propose a new feature or enhancement for SyncServer or ZeroPing
+title: "[FEATURE] "
+labels:
+  - enhancement
+body:
+  - type: dropdown
+    id: side
+    attributes:
+      label: Related Side
+      description: Which side of the project would this feature impact?
+      options:
+        - Backend (SyncServer)
+        - Client (ZeroPing)
+        - Both
+      default: 0
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Feature Description
+      description: What should be added or changed? Why is it useful?
+      placeholder: Describe the idea clearly
+    validations:
+      required: true
+
+  - type: textarea
+    id: justification
+    attributes:
+      label: Why Is This Feature Needed?
+      description: Describe the value this feature brings to the project or users
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Related Issues / Dependencies
+      description: Does this feature depend on any existing feature, PR, or issue?
+
+  - type: textarea
+    id: visual
+    attributes:
+      label: Mockups / Diagrams (optional)
+      description: Include visuals if applicable (upload or describe)

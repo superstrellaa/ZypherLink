@@ -1,0 +1,47 @@
+name: Refactor Proposal
+description: Suggest improvements to the structure or design of the code
+title: "[REFACTOR] "
+labels:
+  - refactor
+body:
+  - type: dropdown
+    id: side
+    attributes:
+      label: Code Side
+      description: Which part of the project will be refactored?
+      options:
+        - Backend (SyncServer)
+        - Client (ZeroPing)
+        - Both
+      default: 0
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Current Implementation
+      description: Describe how the current code works
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Refactor Suggestion
+      description: Explain your idea to improve the codebase structure, readability, or performance
+    validations:
+      required: true
+
+  - type: textarea
+    id: reasoning
+    attributes:
+      label: Reasoning
+      description: Why should this code be refactored?
+
+  - type: checkboxes
+    id: impact
+    attributes:
+      label: Expected Impact
+      options:
+        - label: Improves code readability
+        - label: Increases maintainability
+        - label: Optimizes performance
+        - label: Reduces duplication
+        - label: No functional changes

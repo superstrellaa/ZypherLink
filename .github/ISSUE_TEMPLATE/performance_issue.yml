@@ -1,0 +1,48 @@
+name: Performance Issue
+description: Report lags, slowdowns or high resource usage
+title: "[PERF] "
+labels:
+  - performance
+body:
+  - type: dropdown
+    id: side
+    attributes:
+      label: Affected Side
+      description: Where does the performance issue occur?
+      options:
+        - Backend (SyncServer)
+        - Client (ZeroPing)
+        - Both
+      default: 0
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What is slow or causing performance issues?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Provide steps or conditions where performance degrades
+      value: |-
+        1. 
+        2. 
+        3.
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Performance
+      description: What is the desired or expected performance?
+
+  - type: textarea
+    id: metrics
+    attributes:
+      label: Metrics / Logs
+      description: Include memory usage, CPU load, FPS drops, or log output

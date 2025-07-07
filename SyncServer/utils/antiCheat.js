@@ -1,4 +1,5 @@
-const { MAX_TELEPORT_DISTANCE } = require("../config/game");
+const ConfigManger = require("../managers/configManager");
+const { MAX_TELEPORT_DISTANCE } = ConfigManger.game;
 const playerLastPosition = new Map();
 
 function isMoveSuspicious(uuid, newPos) {
