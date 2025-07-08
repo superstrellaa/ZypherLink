@@ -1,7 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:base"],
-  "description": "Configuración de Renovate para monorepo ZypherLink (Unity + Node.js)",
+  "description": "Renovate Config for ZypherLink",
   "enabledManagers": ["npm"],
   "ignorePaths": [
     "**/Assets/**",
@@ -23,7 +23,6 @@
   "prHourlyLimit": 2,
   "prConcurrentLimit": 4,
   "timezone": "Europe/Madrid",
-  "platform": "github",
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "📦 Renovate Dependency Dashboard",
   "dependencyDashboardApproval": false
