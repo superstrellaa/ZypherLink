@@ -1,12 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ],
+  "extends": ["config:base"],
   "description": "Renovate Config for ZypherLink",
-  "enabledManagers": [
-    "npm"
-  ],
+  "enabledManagers": ["npm", "dockerfile", "docker-compose"],
   "ignorePaths": [
     "**/Assets/**",
     "**/ProjectSettings/**",
@@ -16,21 +12,18 @@
   ],
   "packageRules": [
     {
-      "matchManagers": [
-        "npm"
-      ],
+      "matchManagers": ["npm"],
       "groupName": "node dependencies",
       "groupSlug": "node-deps",
-      "schedule": [
-        "at any time"
-      ],
       "enabled": true
+    },
+    {
+      "matchManagers": ["dockerfile", "docker-compose"],
+      "groupName": "docker stuff",
+      "groupSlug": "docker"
     }
   ],
-  "labels": [
-    "dependencies",
-    "node"
-  ],
+  "labels": ["dependencies", "node", "docker"],
   "prHourlyLimit": 2,
   "prConcurrentLimit": 4,
   "timezone": "Europe/Madrid",
