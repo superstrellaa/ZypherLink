@@ -1,8 +1,14 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base"],
+  "extends": [
+    "config:recommended"
+  ],
   "description": "Renovate Config for ZypherLink a multiplayer framework for Unity",
-  "enabledManagers": ["npm", "dockerfile", "docker-compose"],
+  "enabledManagers": [
+    "npm",
+    "dockerfile",
+    "docker-compose"
+  ],
   "ignorePaths": [
     "**/Assets/**",
     "**/ProjectSettings/**",
@@ -12,18 +18,27 @@
   ],
   "packageRules": [
     {
-      "matchManagers": ["npm"],
+      "matchManagers": [
+        "npm"
+      ],
       "groupName": "node dependencies",
       "groupSlug": "node-deps",
       "enabled": true
     },
     {
-      "matchManagers": ["dockerfile", "docker-compose"],
+      "matchManagers": [
+        "dockerfile",
+        "docker-compose"
+      ],
       "groupName": "docker stuff",
       "groupSlug": "docker"
     }
   ],
-  "labels": ["dependencies", "node", "docker"],
+  "labels": [
+    "dependencies",
+    "node",
+    "docker"
+  ],
   "prHourlyLimit": 2,
   "prConcurrentLimit": 4,
   "timezone": "Europe/Madrid",
