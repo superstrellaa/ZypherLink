@@ -6,6 +6,7 @@ public enum LogType
     Bootstrap,
     FadeManager,
     Network,
+    Console,
     Warning,
     Error
 }

@@ -54,7 +54,7 @@ public static class MessageHandler
         string roomId = msg.Value<string>("roomId");
 
         PlayerManager.Instance.SetUUID(uuid);
-        LogManager.Log($"Received init. UUID: {uuid}, Room ID: {roomId}", LogType.Network);
+        LogManager.Log($"Received init. UUID: {uuid}", LogType.Network);
     }
 
     private static void HandleStartGame(JObject msg)

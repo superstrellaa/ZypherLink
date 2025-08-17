@@ -9,6 +9,8 @@ public class LogManager : Singleton<LogManager>
     private static string logFilePath;
 #endif
 
+    public static event Action<string, LogType> OnLogCreated;
+
     protected override void Awake()
     {
         base.Awake();
@@ -48,6 +50,8 @@ public class LogManager : Singleton<LogManager>
 
         SaveLogToFile(fullMessage);
 #endif
+
+        OnLogCreated?.Invoke(fullMessage, type);
     }
 
     public static void LogDebugOnly(string message, LogType type = LogType.System, bool includeTimestamp = true)
@@ -70,6 +74,7 @@ public class LogManager : Singleton<LogManager>
             case LogType.Bootstrap: color = "#4DD0E1"; break;
             case LogType.FadeManager: color = "#BA68C8"; break;
             case LogType.Network: color = "#4FA1B8"; break;
+            case LogType.Console: color = "#3FA9F5"; break;
             case LogType.Warning: color = "#FFFF00"; break;
             case LogType.Error: color = "#FF0000"; break;
         }
