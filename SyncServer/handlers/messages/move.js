@@ -9,20 +9,21 @@ module.exports = {
     roomId,
     { logger, playerManager, roomManager }
   ) => {
-    // Anti-cheat: check for suspicious movement
     if (
       antiCheat.isMoveSuspicious(uuid, {
         x: message.x,
         y: message.y,
         z: message.z,
+        rotationY: message.rotationY,
+        vx: message.vx,
+        vy: message.vy,
+        vz: message.vz,
       })
     ) {
       logger.warn("[AntiCheat] Suspicious move detected, move cancelled", {
         player: uuid,
         context: "move",
-        x: message.x,
-        y: message.y,
-        z: message.z,
+        ...message,
         roomId,
       });
       socket.send(
@@ -33,20 +34,37 @@ module.exports = {
       );
       return;
     }
+
+    const player = playerManager.getPlayer(uuid);
+    if (player) {
+      player.updateState({
+        x: message.x,
+        y: message.y,
+        z: message.z,
+        rotationY: message.rotationY,
+        vx: message.vx,
+        vy: message.vy,
+        vz: message.vz,
+      });
+    }
+
     logger.info("Player moved", {
       player: uuid,
       context: "move",
-      x: message.x,
-      y: message.y,
-      z: message.z,
+      ...message,
       roomId,
     });
+
     playerManager.broadcast(uuid, {
       type: "playerMoved",
       uuid,
       x: message.x,
       y: message.y,
       z: message.z,
+      rotationY: message.rotationY,
+      vx: message.vx,
+      vy: message.vy,
+      vz: message.vz,
     });
   },
 };

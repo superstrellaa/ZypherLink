@@ -29,6 +29,14 @@ public class ButtonComponent : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public Color lightTextColor = Color.white;
     public Color darkTextColor = Color.black;
 
+    [Header("Image Tinting (optional)")]
+    public Image iconImage;
+
+    [Header("Hover Effects Enabled")]
+    public bool enableHoverColor = true;
+    public bool enableHoverSpacing = true;
+    public bool enableHoverScale = true;
+
     [Header("Events")]
     public UnityEvent onClick;
 
@@ -59,10 +67,18 @@ public class ButtonComponent : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public void OnPointerEnter(PointerEventData eventData)
     {
         isHovered = true;
-        AnimateColor(background.color, hoverColor);
-        AnimateTextSpacing(buttonText.characterSpacing, hoverSpacing);
-        AnimateScale(transform.localScale, originalScale * hoverScale);
-        SetTextContrast(hoverColor);
+
+        if (enableHoverColor)
+        {
+            AnimateColor(background.color, hoverColor);
+            SetTextContrast(hoverColor);
+        }
+
+        if (enableHoverSpacing)
+            AnimateTextSpacing(buttonText.characterSpacing, hoverSpacing);
+
+        if (enableHoverScale)
+            AnimateScale(transform.localScale, originalScale * hoverScale);
 
         CursorManager.Instance?.SetCursor(CursorType.Pointer);
     }
@@ -70,14 +86,21 @@ public class ButtonComponent : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public void OnPointerExit(PointerEventData eventData)
     {
         isHovered = false;
-        AnimateColor(background.color, normalColor);
-        AnimateTextSpacing(buttonText.characterSpacing, defaultSpacing);
-        AnimateScale(transform.localScale, originalScale);
-        SetTextContrast(normalColor);
+
+        if (enableHoverColor)
+        {
+            AnimateColor(background.color, normalColor);
+            SetTextContrast(normalColor);
+        }
+
+        if (enableHoverSpacing)
+            AnimateTextSpacing(buttonText.characterSpacing, defaultSpacing);
+
+        if (enableHoverScale)
+            AnimateScale(transform.localScale, originalScale);
 
         CursorManager.Instance?.SetCursor(CursorType.Default);
     }
-
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -88,8 +111,12 @@ public class ButtonComponent : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public void OnPointerUp(PointerEventData eventData)
     {
         onClick?.Invoke();
-        AnimateColor(background.color, isHovered ? hoverColor : normalColor);
-        SetTextContrast(isHovered ? hoverColor : normalColor);
+
+        if (enableHoverColor)
+        {
+            AnimateColor(background.color, isHovered ? hoverColor : normalColor);
+            SetTextContrast(isHovered ? hoverColor : normalColor);
+        }
     }
 
     private void AnimateColor(Color from, Color to)
@@ -151,10 +178,15 @@ public class ButtonComponent : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     private void SetTextContrast(Color bg)
     {
-        if (!autoTextContrast || buttonText == null) return;
+        if (buttonText != null && autoTextContrast)
+        {
+            float brightness = (bg.r * 0.299f + bg.g * 0.587f + bg.b * 0.114f);
+            Color textColor = (brightness > 0.5f) ? darkTextColor : lightTextColor;
+            buttonText.color = textColor;
 
-        float brightness = (bg.r * 0.299f + bg.g * 0.587f + bg.b * 0.114f);
-        buttonText.color = (brightness > 0.5f) ? darkTextColor : lightTextColor;
+            if (iconImage != null)
+                iconImage.color = textColor;
+        }
     }
 
     private float EaseOutBack(float t)

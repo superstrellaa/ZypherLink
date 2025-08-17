@@ -1,6 +1,7 @@
 const matchmaking = require("../matchmaking");
 const logger = require("../../utils/logger");
 const replayLogger = require("../../utils/replayLogger");
+const playerManager = require("../../managers/playerManager");
 
 function broadcastToRoom(senderUUID, message) {
   const roomId = matchmaking.playerToRoom.get(senderUUID);
@@ -16,9 +17,16 @@ function broadcastToRoom(senderUUID, message) {
     return;
   }
   const data = JSON.stringify(message);
-  for (const [uuid, socket] of room.players.entries()) {
-    if (uuid !== senderUUID && socket.readyState === socket.OPEN) {
-      socket.send(data);
+  for (const uuid of room.players) {
+    if (uuid !== senderUUID) {
+      const player = playerManager.getPlayer(uuid);
+      if (
+        player &&
+        player.socket &&
+        player.socket.readyState === player.socket.OPEN
+      ) {
+        player.socket.send(data);
+      }
     }
   }
   replayLogger.logEvent(roomId, {

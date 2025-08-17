@@ -92,7 +92,7 @@ dist
 
 # VSCode test versions
 .vscode-test
-
+.vs/
 
 # ===== Unity =====
 

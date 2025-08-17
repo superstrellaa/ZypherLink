@@ -2,8 +2,8 @@ const matchmaking = require("../matchmaking");
 const ConfigManager = require("../configManager");
 const { sendStartGame } = require("./gameStarter");
 
-function addPlayerToRoom(uuid, socket) {
-  const added = matchmaking.addPlayerToQueue(uuid, socket);
+function addPlayerToRoom(uuid) {
+  const added = matchmaking.addPlayerToQueue(uuid);
   if (added) {
     matchmaking.processQueue();
     const roomId = matchmaking.playerToRoom.get(uuid);

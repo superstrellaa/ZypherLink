@@ -1,26 +1,36 @@
-const ConfigManger = require("../managers/configManager");
-const { MAX_TELEPORT_DISTANCE } = ConfigManger.game;
-const playerLastPosition = new Map();
+const ConfigManager = require("../managers/configManager");
+const { MAX_TELEPORT_DISTANCE, MAX_VELOCITY } = ConfigManager.game;
+const playerLastState = new Map();
 
-function isMoveSuspicious(uuid, newPos) {
-  const last = playerLastPosition.get(uuid);
+function isMoveSuspicious(uuid, newState) {
+  const last = playerLastState.get(uuid);
   if (!last) {
-    playerLastPosition.set(uuid, { ...newPos });
+    playerLastState.set(uuid, { ...newState });
     return false;
   }
-  const dx = newPos.x - last.x;
-  const dy = newPos.y - last.y;
-  const dz = newPos.z - last.z;
+
+  const dx = newState.x - last.x;
+  const dy = newState.y - last.y;
+  const dz = newState.z - last.z;
   const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-  if (dist > MAX_TELEPORT_DISTANCE) {
+
+  if (dist > MAX_TELEPORT_DISTANCE) return true;
+
+  const vxAbs = Math.abs(newState.vx);
+  const vyAbs = Math.abs(newState.vy);
+  const vzAbs = Math.abs(newState.vz);
+  if (vxAbs > MAX_VELOCITY || vyAbs > MAX_VELOCITY || vzAbs > MAX_VELOCITY)
     return true;
-  }
-  playerLastPosition.set(uuid, { ...newPos });
+
+  const rotDiff = Math.abs(newState.rotationY - last.rotationY);
+  if (rotDiff > 180) return true;
+
+  playerLastState.set(uuid, { ...newState });
   return false;
 }
 
 function resetPlayer(uuid) {
-  playerLastPosition.delete(uuid);
+  playerLastState.delete(uuid);
 }
 
 module.exports = {

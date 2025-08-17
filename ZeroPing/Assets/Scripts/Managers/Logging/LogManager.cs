@@ -1,4 +1,6 @@
 using UnityEngine;
+using System;     
+using System.IO;
 
 public class LogManager : Singleton<LogManager>
 {
@@ -17,7 +19,7 @@ public class LogManager : Singleton<LogManager>
             Directory.CreateDirectory(logDirectory);
 
         logFilePath = Path.Combine(logDirectory, GetLogFileName());
-        Debug.Log("If you want to see all the game logs go to the folder 'logs'");
+        Debug.Log("|-- IF YOU WANT TO SEE ALL THE GAME LOGS GO TO THE FOLDER 'LOGS' --|");
 #endif
     }
 
@@ -67,6 +69,7 @@ public class LogManager : Singleton<LogManager>
             case LogType.SceneManager: color = "#800080"; break;
             case LogType.Bootstrap: color = "#4DD0E1"; break;
             case LogType.FadeManager: color = "#BA68C8"; break;
+            case LogType.Network: color = "#4FA1B8"; break;
             case LogType.Warning: color = "#FFFF00"; break;
             case LogType.Error: color = "#FF0000"; break;
         }

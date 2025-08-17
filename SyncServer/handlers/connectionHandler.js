@@ -6,9 +6,16 @@ const { registerSocketEvents } = require("./socketEvents");
 
 function handleConnection(socket) {
   const uuid = generateUUID();
-  const roomId = playerManager.addPlayer(uuid, socket);
+  playerManager.addPlayer(uuid, socket);
 
-  Logger.info("Player connected", { player: uuid, context: "connection" });
+  const roomManager = require("../managers/roomManager");
+  const roomId = roomManager.addPlayerToRoom(uuid);
+
+  Logger.info("Player connected", {
+    player: uuid,
+    context: "connection",
+    roomId,
+  });
 
   socket.send(JSON.stringify({ type: "init", uuid, roomId }));
 

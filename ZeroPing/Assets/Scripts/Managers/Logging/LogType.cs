@@ -5,6 +5,7 @@ public enum LogType
     SceneManager,
     Bootstrap,
     FadeManager,
+    Network,
     Warning,
     Error
 }

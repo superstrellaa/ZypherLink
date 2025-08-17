@@ -9,5 +9,9 @@ module.exports = {
     x: Joi.number().required(),
     y: Joi.number().required(),
     z: Joi.number().required(),
+    rotationY: Joi.number().required(),
+    vx: Joi.number().required(),
+    vy: Joi.number().required(),
+    vz: Joi.number().required(),
   }),
 };

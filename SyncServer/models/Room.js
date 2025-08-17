@@ -1,13 +1,13 @@
 class Room {
   constructor(roomId) {
     this.roomId = roomId;
-    this.players = new Map();
+    this.players = new Set();
     this.lastActivity = Date.now();
     this.tickInterval = null;
   }
 
-  addPlayer(uuid, socket) {
-    this.players.set(uuid, socket);
+  addPlayer(uuid) {
+    this.players.add(uuid);
     this.lastActivity = Date.now();
   }
 

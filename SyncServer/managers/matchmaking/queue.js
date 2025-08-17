@@ -4,12 +4,12 @@ const queueState = {
   matchmakingQueue: [],
 };
 
-function addPlayerToQueue(uuid, socket) {
+function addPlayerToQueue(uuid) {
   const { matchmakingQueue } = queueState;
   if (findPlayerInQueue(uuid) !== -1) {
     return false;
   }
-  matchmakingQueue.push({ uuid, socket });
+  matchmakingQueue.push(uuid);
   logger.info("Player added to matchmaking queue", {
     player: uuid,
     context: "matchmaking",
@@ -19,7 +19,7 @@ function addPlayerToQueue(uuid, socket) {
 
 function findPlayerInQueue(uuid) {
   const { matchmakingQueue } = queueState;
-  return matchmakingQueue.findIndex((p) => p.uuid === uuid);
+  return matchmakingQueue.indexOf(uuid);
 }
 
 function removePlayerFromQueue(uuid) {

@@ -7,7 +7,7 @@ function sendStartGame(roomId) {
   const room = matchmaking.rooms.get(roomId);
   if (!room) return;
 
-  const players = Array.from(room.players.keys());
+  const players = Array.from(room.players);
 
   const validMap = mapManager
     .getAllMaps()
@@ -32,21 +32,29 @@ function sendStartGame(roomId) {
     positions[uuid] = spawnAssignments[uuid];
   });
 
-  for (const [playerUUID, playerSocket] of room.players.entries()) {
-    playerSocket.send(
-      JSON.stringify({
-        type: "startGame",
-        roomId,
-        players,
-        map: validMap.name,
-      })
-    );
-    playerSocket.send(
-      JSON.stringify({
-        type: "startPositions",
-        positions,
-      })
-    );
+  const playerManager = require("../../managers/playerManager");
+  for (const playerUUID of room.players) {
+    const player = playerManager.getPlayer(playerUUID);
+    if (
+      player &&
+      player.socket &&
+      player.socket.readyState === player.socket.OPEN
+    ) {
+      player.socket.send(
+        JSON.stringify({
+          type: "startGame",
+          roomId,
+          players,
+          map: validMap.name,
+        })
+      );
+      player.socket.send(
+        JSON.stringify({
+          type: "startPositions",
+          positions,
+        })
+      );
+    }
   }
 
   room.metadata = {
