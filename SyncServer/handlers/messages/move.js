@@ -55,7 +55,7 @@ module.exports = {
       roomId,
     });
 
-    playerManager.broadcast(uuid, {
+    roomManager.broadcastToRoom(uuid, {
       type: "playerMoved",
       uuid,
       x: message.x,

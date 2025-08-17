@@ -138,6 +138,57 @@ public class ConsoleManager : MonoBehaviour
             string sceneName = args[0];
             SceneTransitionManager.Instance.TransitionTo(sceneName, withFade: true);
         }, "Changes the current scene to the specified one.");
+
+        commands["network"] = ((args) =>
+        {
+            if (args.Length < 1)
+            {
+                LogManager.Log("Usage: /network <connect|disconnect|send> [json]", LogType.Console);
+                return;
+            }
+
+            string subCommand = args[0].ToLower();
+
+            switch (subCommand)
+            {
+                case "connect":
+                    NetworkManager.Instance.ConnectToServer();
+                    break;
+
+                case "disconnect":
+                    NetworkManager.Instance.Disconnect();
+                    break;
+
+                case "send":
+                    if (args.Length < 2)
+                    {
+                        LogManager.Log("Usage: /network send <json>", LogType.Console);
+                        return;
+                    }
+
+                    if (!NetworkManager.Instance.IsConnected)
+                    {
+                        LogManager.Log("Not connected to the server. Use /network connect first.", LogType.Warning);
+                        return;
+                    }
+
+                    string json = string.Join(" ", args[1..]);
+                    try
+                    {
+                        var obj = JsonUtility.FromJson<object>(json);
+                        NetworkManager.Instance.Send(json);
+                    }
+                    catch (Exception e)
+                    {
+                        LogManager.Log($"Invalid JSON: {e.Message}", LogType.Error);
+                    }
+                    break;
+
+                default:
+                    LogManager.Log("Unknown subcommand. Use connect, disconnect or send.", LogType.Console);
+                    break;
+            }
+        }, "Network commands: connect, disconnect, send <json>");
     }
 
     private void ExecuteCommand(string input)
