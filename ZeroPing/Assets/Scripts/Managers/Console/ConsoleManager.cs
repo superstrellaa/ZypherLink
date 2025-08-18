@@ -43,7 +43,9 @@ public class ConsoleManager : MonoBehaviour
 
         if (titleTMP == null) return;
 
-        titleTMP.text = message;
+        string timestamp = DateTime.Now.ToString("HH:mm:ss.fff");
+
+        titleTMP.text = $"[{timestamp}] {message}";
 
         switch (type)
         {
@@ -56,13 +58,6 @@ public class ConsoleManager : MonoBehaviour
             case LogType.Console: titleTMP.color = new Color(0.25f, 0.65f, 1f); break;
             case LogType.Warning: titleTMP.color = Color.yellow; break;
             case LogType.Error: titleTMP.color = Color.red; break;
-        }
-
-        if (message.StartsWith("Available commands:", StringComparison.OrdinalIgnoreCase))
-        {
-            titleTMP.enableAutoSizing = true;
-            titleTMP.fontSizeMin = 10; 
-            titleTMP.fontSizeMax = 18;
         }
     }
 

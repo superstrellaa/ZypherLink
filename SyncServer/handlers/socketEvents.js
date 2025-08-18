@@ -30,6 +30,14 @@ function registerSocketEvents(socket, uuid, onPong, stopHeartbeat) {
 
   socket.on("close", () => {
     playerManager.removePlayer(uuid);
+    const roomManager = require("../managers/roomManager");
+    roomManager.removePlayerFromRoom(uuid);
+    if (typeof roomManager.getRoomByPlayer === "function") {
+      const room = roomManager.getRoomByPlayer(uuid);
+      if (room && room.players && room.players.has(uuid)) {
+        room.players.delete(uuid);
+      }
+    }
     if (typeof stopHeartbeat === "function") stopHeartbeat();
     logger.info("Player disconnected", { player: uuid, context: "connection" });
   });
