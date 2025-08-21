@@ -12,6 +12,9 @@ lerna-debug.log*
 # Custom for Backend
 replays/
 
+# Prisma
+**/generated/prisma/
+
 # Diagnostic reports
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 

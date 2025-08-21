@@ -7,6 +7,38 @@
       "RelativeMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\console\\consolemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|c:\\users\\javie\\documents\\unity proyects\\zypherlink\\zeroping\\assets\\scripts\\managers\\popup\\popupmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\popup\\popupmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|c:\\users\\javie\\documents\\unity proyects\\zypherlink\\zeroping\\assets\\scripts\\gui\\lobby\\buttons\\matchmakingbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gui\\lobby\\buttons\\matchmakingbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\assets\\scripts\\gui\\components\\buttoncomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gui\\components\\buttoncomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\assets\\scripts\\network\\messages\\messagehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\network\\messages\\messagehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\assets\\scripts\\network\\networkmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\network\\networkmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\assets\\scripts\\managers\\logging\\logmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\logging\\logmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\assets\\scripts\\gui\\components\\pointercomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gui\\components\\pointercomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\assets\\scripts\\managers\\console\\autocompleteentry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\console\\autocompleteentry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\assets\\scripts\\gui\\lobby\\lobbymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gui\\lobby\\lobbymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -19,20 +51,8 @@
       "RelativeMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\thirdpersonmovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\assets\\scripts\\network\\networkmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\network\\networkmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\assets\\scripts\\managers\\core\\singleton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\core\\singleton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\assets\\scripts\\managers\\logging\\logmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\logging\\logmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\assets\\scripts\\gui\\lobby\\buttons\\matchmakingbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gui\\lobby\\buttons\\matchmakingbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\assets\\scripts\\core\\bootstraploader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -43,24 +63,12 @@
       "RelativeMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\logging\\logtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|c:\\users\\javie\\documents\\unity proyects\\zypherlink\\zeroping\\assets\\scripts\\gui\\components\\pointercomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gui\\components\\pointercomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|c:\\users\\javie\\documents\\unity proyects\\zypherlink\\zeroping\\assets\\scripts\\managers\\cursor\\cursortype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\assets\\scripts\\managers\\cursor\\cursortype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\cursor\\cursortype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\assets\\scripts\\managers\\cursor\\cursormanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\cursor\\cursormanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\assets\\scripts\\gui\\components\\buttoncomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gui\\components\\buttoncomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\assets\\scripts\\network\\messages\\messagehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\network\\messages\\messagehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DE23E6BC-6B47-03EF-7E31-696BA4E084B9}|Assembly-CSharp.csproj|C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\assets\\scripts\\managers\\scene\\scenetransitionmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -90,20 +98,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "PointerComponent.cs",
-              "DocumentMoniker": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\GUI\\Components\\PointerComponent.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\GUI\\Components\\PointerComponent.cs",
-              "ToolTip": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\GUI\\Components\\PointerComponent.cs",
-              "RelativeToolTip": "Assets\\Scripts\\GUI\\Components\\PointerComponent.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "PopupManager.cs",
+              "DocumentMoniker": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\Managers\\Popup\\PopupManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Popup\\PopupManager.cs",
+              "ToolTip": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\Managers\\Popup\\PopupManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Managers\\Popup\\PopupManager.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAgwBsAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-17T13:23:00.55Z",
+              "WhenOpened": "2025-08-20T15:51:32.495Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AutoCompleteEntry.cs",
+              "DocumentMoniker": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\Managers\\Console\\AutoCompleteEntry.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Console\\AutoCompleteEntry.cs",
+              "ToolTip": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\Managers\\Console\\AutoCompleteEntry.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Managers\\Console\\AutoCompleteEntry.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-18T12:34:38.767Z"
             },
             {
               "$type": "Document",
@@ -113,7 +133,7 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Console\\ConsoleManager.cs",
               "ToolTip": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\Managers\\Console\\ConsoleManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Managers\\Console\\ConsoleManager.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAAAwwDMAAABYAAAAAAAAAA==",
+              "ViewState": "AgIAAOoBAAAAAAAAAAAQwAICAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-17T12:56:59.479Z",
               "EditorCaption": ""
@@ -121,44 +141,55 @@
             {
               "$type": "Document",
               "DocumentIndex": 7,
+              "Title": "PointerComponent.cs",
+              "DocumentMoniker": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\GUI\\Components\\PointerComponent.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\GUI\\Components\\PointerComponent.cs",
+              "ToolTip": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\GUI\\Components\\PointerComponent.cs",
+              "RelativeToolTip": "Assets\\Scripts\\GUI\\Components\\PointerComponent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-17T13:23:00.55Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "MatchmakingButton.cs",
               "DocumentMoniker": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\GUI\\Lobby\\Buttons\\MatchmakingButton.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GUI\\Lobby\\Buttons\\MatchmakingButton.cs",
               "ToolTip": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\GUI\\Lobby\\Buttons\\MatchmakingButton.cs",
               "RelativeToolTip": "Assets\\Scripts\\GUI\\Lobby\\Buttons\\MatchmakingButton.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAQwB0AAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAowDkAAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-09T11:22:17.754Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 4,
               "Title": "MessageHandler.cs",
               "DocumentMoniker": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\Network\\Messages\\MessageHandler.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Network\\Messages\\MessageHandler.cs",
               "ToolTip": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\Network\\Messages\\MessageHandler.cs",
               "RelativeToolTip": "Assets\\Scripts\\Network\\Messages\\MessageHandler.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAgwCUAAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADQAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-09T10:22:36.865Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "NetworkManager.cs",
               "DocumentMoniker": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\Network\\NetworkManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Network\\NetworkManager.cs",
               "ToolTip": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\Network\\NetworkManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Network\\NetworkManager.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAUwDEAAAAqAAAAAAAAAA==",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAIwB4AAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-09T10:22:20.061Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-09T10:22:20.061Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 9,
               "Title": "LobbyManager.cs",
               "DocumentMoniker": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\GUI\\Lobby\\LobbyManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GUI\\Lobby\\LobbyManager.cs",
@@ -166,12 +197,11 @@
               "RelativeToolTip": "Assets\\Scripts\\GUI\\Lobby\\LobbyManager.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-04T12:02:24.917Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-04T12:02:24.917Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 16,
               "Title": "CursorManager.cs",
               "DocumentMoniker": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\Managers\\Cursor\\CursorManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Cursor\\CursorManager.cs",
@@ -183,7 +213,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 15,
               "Title": "CursorType.cs",
               "DocumentMoniker": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\Managers\\Cursor\\CursorType.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Cursor\\CursorType.cs",
@@ -191,24 +221,23 @@
               "RelativeToolTip": "Assets\\Scripts\\Managers\\Cursor\\CursorType.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-04T11:36:20.326Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-04T11:36:20.326Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 3,
               "Title": "ButtonComponent.cs",
               "DocumentMoniker": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\GUI\\Components\\ButtonComponent.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GUI\\Components\\ButtonComponent.cs",
               "ToolTip": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\GUI\\Components\\ButtonComponent.cs",
               "RelativeToolTip": "Assets\\Scripts\\GUI\\Components\\ButtonComponent.cs",
-              "ViewState": "AgIAAD0AAAAAAAAAAAAgwLsAAAAsAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAACgAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-03T20:57:55.045Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 13,
               "Title": "BootstrapLoader.cs",
               "DocumentMoniker": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\Core\\BootstrapLoader.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Core\\BootstrapLoader.cs",
@@ -216,12 +245,11 @@
               "RelativeToolTip": "Assets\\Scripts\\Core\\BootstrapLoader.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-03T15:50:25.597Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-03T15:50:25.597Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 20,
               "Title": "FadeManager.cs",
               "DocumentMoniker": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\Managers\\Fade\\FadeManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Fade\\FadeManager.cs",
@@ -239,14 +267,13 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Logging\\LogManager.cs",
               "ToolTip": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\Managers\\Logging\\LogManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Managers\\Logging\\LogManager.cs",
-              "ViewState": "AgIAAFAAAAAAAAAAAAAswGoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-03T15:37:17.994Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-03T15:37:17.994Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 14,
               "Title": "LogType.cs",
               "DocumentMoniker": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\Managers\\Logging\\LogType.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Logging\\LogType.cs",
@@ -254,12 +281,11 @@
               "RelativeToolTip": "Assets\\Scripts\\Managers\\Logging\\LogType.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-03T15:36:54.617Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-03T15:36:54.617Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 17,
               "Title": "SceneTransitionManager.cs",
               "DocumentMoniker": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\Managers\\Scene\\SceneTransitionManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Scene\\SceneTransitionManager.cs",
@@ -271,7 +297,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 19,
               "Title": "PlayerManager.cs",
               "DocumentMoniker": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\Managers\\Player\\PlayerManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Player\\PlayerManager.cs",
@@ -283,7 +309,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 10,
               "Title": "GUIManager.cs",
               "DocumentMoniker": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\GUI\\GUIManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GUI\\GUIManager.cs",
@@ -291,12 +317,11 @@
               "RelativeToolTip": "Assets\\Scripts\\GUI\\GUIManager.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-03T15:34:25.358Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-03T15:34:25.358Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 12,
               "Title": "Singleton.cs",
               "DocumentMoniker": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\Managers\\Core\\Singleton.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Core\\Singleton.cs",
@@ -304,12 +329,11 @@
               "RelativeToolTip": "Assets\\Scripts\\Managers\\Core\\Singleton.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADQAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-03T15:15:51.899Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-03T15:15:51.899Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 21,
               "Title": "NetworkManager.cs",
               "DocumentMoniker": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\Networking\\NetworkManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Networking\\NetworkManager.cs",
@@ -321,7 +345,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 11,
               "Title": "ThirdPersonMovement.cs",
               "DocumentMoniker": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\Player\\ThirdPersonMovement.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\ThirdPersonMovement.cs",
@@ -329,12 +353,11 @@
               "RelativeToolTip": "Assets\\Scripts\\Player\\ThirdPersonMovement.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAqwB8AAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-27T15:24:48.637Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-27T15:24:48.637Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 18,
               "Title": "ThirdPersonCamera.cs",
               "DocumentMoniker": "C:\\Users\\javie\\Documents\\Unity Proyects\\ZypherLink\\ZeroPing\\Assets\\Scripts\\Player\\Camera\\ThirdPersonCamera.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\Camera\\ThirdPersonCamera.cs",

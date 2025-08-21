@@ -5,6 +5,9 @@ public class GUIManager : Singleton<GUIManager>
     [Header("Lobby GUI")]
     public GameObject lobbyGUI;
 
+    [Header("Game Loader GUI")]
+    public GameObject gameLoaderGUI;
+
     public bool IsGUIOpen { get; private set; } = false;
 
     public void SetGUIOpen(bool value)

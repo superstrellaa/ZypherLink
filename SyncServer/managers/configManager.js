@@ -70,5 +70,4 @@ module.exports = {
   get maps() {
     return loadConfig("maps");
   },
-  // Add more configs as needed
 };

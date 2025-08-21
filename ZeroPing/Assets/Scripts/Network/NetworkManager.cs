@@ -6,20 +6,21 @@ public class NetworkManager : Singleton<NetworkManager>
 {
     [Header("WebSocket Settings")]
     [SerializeField] private string serverUrl = "ws://localhost:3000";
-    [SerializeField] private bool autoConnect = false;
 
     private WebSocket socket;
 
     public bool IsConnected => socket != null && socket.State == WebSocketState.Open;
+    public bool HasError { get; private set; } = false;
 
     private void Start()
     {
-        if (autoConnect)
-            ConnectToServer();
+        // ConnectToServer();
     }
 
     public async void ConnectToServer()
     {
+        HasError = false;
+
         if (IsConnected)
         {
             LogManager.Log("Already connected.", LogType.Network);
@@ -43,6 +44,7 @@ public class NetworkManager : Singleton<NetworkManager>
         socket.OnError += (err) =>
         {
             LogManager.Log($"WebSocket error: {err}", LogType.Error);
+            HasError = true;
         };
 
         socket.OnClose += (code) =>
@@ -54,6 +56,7 @@ public class NetworkManager : Singleton<NetworkManager>
             else
             {
                 LogManager.Log($"WebSocket closed with code {code}", LogType.Warning);
+                HasError = true;
             }
         };
 
@@ -99,5 +102,10 @@ public class NetworkManager : Singleton<NetworkManager>
 
         if (socket != null)
             await socket.Close();
+    }
+
+    public void MarkError()
+    {
+        HasError = true;
     }
 }

@@ -29,15 +29,46 @@ function registerSocketEvents(socket, uuid, onPong, stopHeartbeat) {
   });
 
   socket.on("close", () => {
-    playerManager.removePlayer(uuid);
     const roomManager = require("../managers/roomManager");
-    roomManager.removePlayerFromRoom(uuid);
+    let room = null;
     if (typeof roomManager.getRoomByPlayer === "function") {
-      const room = roomManager.getRoomByPlayer(uuid);
-      if (room && room.players && room.players.has(uuid)) {
-        room.players.delete(uuid);
+      room = roomManager.getRoomByPlayer(uuid);
+    }
+    if (room && room.players) {
+      for (const otherUUID of room.players) {
+        if (otherUUID !== uuid) {
+          const otherSocket = playerManager.getSocket(otherUUID);
+          if (otherSocket && otherSocket.readyState === otherSocket.OPEN) {
+            otherSocket.send(
+              JSON.stringify({ type: "playerDisconnected", uuid })
+            );
+            logger.info("PlayerDisconnected message sent", {
+              context: "roomManager",
+              to: otherUUID,
+              disconnected: uuid,
+              roomId: room.roomId,
+            });
+          }
+        }
+      }
+      room.players.delete(uuid);
+      if (room.players.size === 1) {
+        const lastUUID = Array.from(room.players)[0];
+        const lastSocket = playerManager.getSocket(lastUUID);
+        if (lastSocket && lastSocket.readyState === lastSocket.OPEN) {
+          lastSocket.send(
+            JSON.stringify({ type: "roomDeleted", roomId: room.roomId })
+          );
+          logger.info("Room Deleted message sent to player", {
+            context: "roomManager",
+            to: lastUUID,
+            roomId: room.roomId,
+          });
+        }
       }
     }
+    roomManager.removePlayerFromRoom(uuid);
+    playerManager.removePlayer(uuid);
     if (typeof stopHeartbeat === "function") stopHeartbeat();
     logger.info("Player disconnected", { player: uuid, context: "connection" });
   });

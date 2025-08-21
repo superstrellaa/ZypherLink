@@ -8,16 +8,12 @@ function handleConnection(socket) {
   const uuid = generateUUID();
   playerManager.addPlayer(uuid, socket);
 
-  const roomManager = require("../managers/roomManager");
-  const roomId = roomManager.addPlayerToRoom(uuid);
-
   Logger.info("Player connected", {
     player: uuid,
     context: "connection",
-    roomId,
   });
 
-  socket.send(JSON.stringify({ type: "init", uuid, roomId }));
+  socket.send(JSON.stringify({ type: "init", uuid }));
 
   const heartbeat = startHeartbeat(socket, uuid);
 

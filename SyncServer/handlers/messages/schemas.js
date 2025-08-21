@@ -14,4 +14,10 @@ module.exports = {
     vy: Joi.number().required(),
     vz: Joi.number().required(),
   }),
+  joinQueue: Joi.object({
+    type: Joi.string().valid("joinQueue").required(),
+  }),
+  leaveQueue: Joi.object({
+    type: Joi.string().valid("leaveQueue").required(),
+  }),
 };

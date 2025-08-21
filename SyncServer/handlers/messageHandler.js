@@ -5,7 +5,7 @@ const playerManager = require("../managers/playerManager");
 const roomManager = require("../managers/roomManager");
 const ConfigManager = require("../managers/configManager");
 const schemas = require("./messages/schemas");
-const ALLOWED_WHEN_NOT_IN_ROOM = ["ping", "help", "joinQueue"];
+const ALLOWED_WHEN_NOT_IN_ROOM = ["ping", "help", "joinQueue", "leaveQueue"];
 const { RATE_LIMIT_WINDOW_MS, RATE_LIMIT_MAX_MSGS } = ConfigManager.rateLimit;
 const rateLimitMap = new Map();
 

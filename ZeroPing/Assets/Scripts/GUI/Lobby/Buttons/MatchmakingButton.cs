@@ -41,7 +41,7 @@ public class MatchmakingButton : MonoBehaviour
         timerCoroutine = StartCoroutine(UpdateTimer());
 
         LogManager.Log("Matchmaking started", LogType.Network);
-        NetworkManager.Instance.ConnectToServer();
+        NetworkManager.Instance.Send("{\"type\":\"joinQueue\"}");
     }
 
 
@@ -55,7 +55,7 @@ public class MatchmakingButton : MonoBehaviour
         LogManager.Log("Matchmaking cancelled", LogType.Network);
 
         if (NetworkManager.Instance.IsConnected)
-            NetworkManager.Instance.Disconnect();
+            NetworkManager.Instance.Send("{\"type\":\"leaveQueue\"}");
 
         matchmakingButtonObject.SetActive(false);
         playButtonObject.SetActive(true);

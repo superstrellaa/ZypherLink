@@ -15,6 +15,6 @@ public class BootstrapLoader : MonoBehaviour
         }
 
         LogManager.Log("Bootstrap completed. Ready for scene transition.", LogType.Bootstrap);
-        SceneTransitionManager.Instance.TransitionTo("sc_Lobby", withFade: false);
+        SceneTransitionManager.Instance.TransitionTo("sc_LoadingGame", withFade: false);
     }
 }

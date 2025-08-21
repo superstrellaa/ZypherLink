@@ -51,7 +51,6 @@ public static class MessageHandler
     private static void HandleInit(JObject msg)
     {
         string uuid = msg.Value<string>("uuid");
-        string roomId = msg.Value<string>("roomId");
 
         PlayerManager.Instance.SetUUID(uuid);
         LogManager.Log($"Received init. UUID: {uuid}", LogType.Network);
@@ -63,14 +62,12 @@ public static class MessageHandler
         string roomId = msg.Value<string>("roomId");
 
         LogManager.Log($"Match started in Room: {roomId} with players: {players}", LogType.Gameplay);
-        // Puedes guardar jugadores o instanciarlos aquí
     }
 
     private static void HandleStartPositions(JObject msg)
     {
         var positions = msg["positions"];
         LogManager.Log($"Start positions received: {positions}", LogType.Gameplay);
-        // Aquí iría la lógica para posicionar jugadores
     }
 
     private static void HandlePlayerMoved(JObject msg)
@@ -81,6 +78,5 @@ public static class MessageHandler
         float z = msg.Value<float>("z");
 
         LogManager.LogDebugOnly($"Player {uuid} moved to ({x}, {y}, {z})", LogType.Gameplay);
-        // Mueve al jugador con ese UUID
     }
 }
