@@ -47,7 +47,7 @@ public class CursorManager : Singleton<CursorManager>
         }
         else
         {
-            Debug.LogWarning($"[CursorManager] CursorType '{type}' not found in dictionary.");
+            LogManager.LogDebugOnly($"[CursorManager] CursorType '{type}' not found in dictionary.", LogType.Warning);
         }
     }
 }

@@ -5,6 +5,8 @@ using System.Collections;
 
 public class MatchmakingButton : MonoBehaviour
 {
+    public static MatchmakingButton Instance { get; private set; }
+
     [Header("UI References")]
     public TMP_Text timerText;
     public Button cancelButton;
@@ -16,6 +18,18 @@ public class MatchmakingButton : MonoBehaviour
     private Coroutine timerCoroutine;
     private float elapsedTime = 0f;
     private bool isSearching = false;
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -31,6 +45,7 @@ public class MatchmakingButton : MonoBehaviour
 
     private IEnumerator DoStartMatchmaking()
     {
+        PlayerManager.Instance.SetState(PlayerState.Queue);
         isSearching = true;
         elapsedTime = 0f;
 
@@ -47,6 +62,7 @@ public class MatchmakingButton : MonoBehaviour
 
     public void CancelMatchmaking()
     {
+        PlayerManager.Instance.SetState(PlayerState.Lobby);
         isSearching = false;
 
         if (timerCoroutine != null)
@@ -56,6 +72,18 @@ public class MatchmakingButton : MonoBehaviour
 
         if (NetworkManager.Instance.IsConnected)
             NetworkManager.Instance.Send("{\"type\":\"leaveQueue\"}");
+
+        matchmakingButtonObject.SetActive(false);
+        playButtonObject.SetActive(true);
+    }
+
+    public void RestartMatchmaking()
+    {
+        isSearching = false;
+
+        if (timerCoroutine != null)
+            StopCoroutine(timerCoroutine);
+        elapsedTime = 0f;
 
         matchmakingButtonObject.SetActive(false);
         playButtonObject.SetActive(true);

@@ -10,6 +10,6 @@ module.exports = {
       context: "leaveQueue",
       removed,
     });
-    socket.send(JSON.stringify({ type: "queueLeft", success: !!removed }));
+    // socket.send(JSON.stringify({ type: "queueLeft", success: !!removed }));
   },
 };

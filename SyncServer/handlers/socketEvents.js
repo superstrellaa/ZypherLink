@@ -64,6 +64,10 @@ function registerSocketEvents(socket, uuid, onPong, stopHeartbeat) {
             to: lastUUID,
             roomId: room.roomId,
           });
+          room.players.delete(lastUUID);
+          if (typeof roomManager.removePlayerFromRoom === "function") {
+            roomManager.removePlayerFromRoom(lastUUID);
+          }
         }
       }
     }

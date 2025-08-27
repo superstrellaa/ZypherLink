@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const prisma = require("../db/client");
-const logger = require("../db/logger");
+const logger = require("../utils/logger");
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -11,7 +11,7 @@ async function login(req, res) {
 
     const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
 
-    logger.info(`User logged in from ${ip}, token: ${token}`);
+    logger.info(`User logged in`, { ip: ip, token: token });
 
     await prisma.token.create({
       data: {

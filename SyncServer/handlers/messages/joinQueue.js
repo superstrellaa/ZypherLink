@@ -10,10 +10,5 @@ module.exports = {
       context: "joinQueue",
       assignedRoomId,
     });
-    if (assignedRoomId) {
-      socket.send(
-        JSON.stringify({ type: "roomAssigned", roomId: assignedRoomId })
-      );
-    }
   },
 };

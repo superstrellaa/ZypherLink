@@ -4,6 +4,7 @@ public class GUIManager : Singleton<GUIManager>
 {
     [Header("Lobby GUI")]
     public GameObject lobbyGUI;
+    public GameObject lobbyMatchFound;
 
     [Header("Game Loader GUI")]
     public GameObject gameLoaderGUI;

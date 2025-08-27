@@ -1,6 +1,23 @@
-using System;
 using NativeWebSocket;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+
+public enum PlayerState
+{
+    Loading,
+    Lobby,
+    Queue,
+    Playing
+}
+
+[Serializable]
+public class PlayerInfo
+{
+    public string uuid;
+    public Vector3 spawnPosition;
+    public Quaternion spawnRotation;
+}
 
 public class NetworkManager : Singleton<NetworkManager>
 {
@@ -9,8 +26,15 @@ public class NetworkManager : Singleton<NetworkManager>
 
     private WebSocket socket;
 
+    private float pingInterval = 10f;
+
     public bool IsConnected => socket != null && socket.State == WebSocketState.Open;
     public bool HasError { get; private set; } = false;
+
+    public string MatchId { get; private set; }
+    public List<PlayerInfo> Players { get; private set; } = new List<PlayerInfo>();
+    public string MapName { get; private set; }
+    public bool MatchReady { get; private set; } = false;
 
     private void Start()
     {
@@ -32,6 +56,8 @@ public class NetworkManager : Singleton<NetworkManager>
         socket.OnOpen += () =>
         {
             LogManager.Log("WebSocket connected!", LogType.Network);
+
+            InvokeRepeating(nameof(SendPing), pingInterval, pingInterval);
         };
 
         socket.OnMessage += (bytes) =>
@@ -49,6 +75,9 @@ public class NetworkManager : Singleton<NetworkManager>
 
         socket.OnClose += (code) =>
         {
+            if (this != null && gameObject != null)
+                CancelInvoke(nameof(SendPing));
+
             if (code == WebSocketCloseCode.Normal)
             {
                 LogManager.Log("WebSocket closed normally.", LogType.Network);
@@ -57,10 +86,25 @@ public class NetworkManager : Singleton<NetworkManager>
             {
                 LogManager.Log($"WebSocket closed with code {code}", LogType.Warning);
                 HasError = true;
+
+                if (PlayerManager.Instance.CurrentState != PlayerState.Loading)
+                {
+                    PlayerManager.Instance.SetState(PlayerState.Loading);
+                    SceneTransitionManager.Instance.TransitionTo("sc_LoadingGame", withFade: false);
+                }
             }
         };
 
         await socket.Connect();
+    }
+
+    private async void SendPing()
+    {
+        if (IsConnected)
+        {
+            await socket.SendText("{\"type\":\"ping\"}");
+            LogManager.LogDebugOnly("Ping sent to server.", LogType.Network);
+        }
     }
 
     public async void Send(string json)
@@ -107,5 +151,15 @@ public class NetworkManager : Singleton<NetworkManager>
     public void MarkError()
     {
         HasError = true;
+    }
+
+    public void SetMatchData(string matchId, List<PlayerInfo> players, string mapName)
+    {
+        MatchId = matchId;
+        Players = players;
+        MapName = mapName;
+        MatchReady = true;
+
+        LogManager.LogDebugOnly($"Match {MatchId} on map '{MapName}' stored. Players: {players.Count}", LogType.Network);
     }
 }

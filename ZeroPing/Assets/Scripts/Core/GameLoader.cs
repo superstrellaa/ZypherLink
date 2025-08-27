@@ -1,11 +1,13 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class GameLoader : MonoBehaviour
 {
     private GameObject gameLoaderPanel;
     private TMP_Text statusText;
+    private string apiToken;
 
     void Start()
     {
@@ -13,6 +15,7 @@ public class GameLoader : MonoBehaviour
         statusText = GUIManager.Instance.gameLoaderGUI.GetComponentInChildren<TMP_Text>();
 
         GUIManager.Instance.ShowPanel(gameLoaderPanel, true);
+        GUIManager.Instance.SetGUIOpen(true);
 
         StartCoroutine(GameLoaderEnum());
     }
@@ -47,12 +50,51 @@ public class GameLoader : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         SceneTransitionManager.Instance.TransitionTo("sc_Lobby", withFade: true);
+        PlayerManager.Instance.SetState(PlayerState.Lobby);
     }
 
     private IEnumerator ConnectToAPI()
     {
-        yield return new WaitForSeconds(1.0f);
-        LogManager.Log("API connected. Token received.", LogType.Bootstrap);
+        using (UnityWebRequest www = new UnityWebRequest("http://localhost:3001/auth/login", "POST"))
+        {
+            www.uploadHandler = new UploadHandlerRaw(new byte[0]);
+            www.downloadHandler = new DownloadHandlerBuffer();
+            www.SetRequestHeader("Content-Type", "application/json");
+
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                LogManager.Log($"API Error: {www.error}", LogType.Error);
+                apiToken = null;
+
+                bool retryPressed = false;
+
+                UpdateStatus("API Error");
+                PopupManager.Instance.Open(
+                    PopupType.NotServer,
+                    showRetry: true,
+                    onRetry: () =>
+                    {
+                        UpdateStatus("Retrying API connection...");
+                        retryPressed = true;
+                    });
+
+                yield return new WaitUntil(() => retryPressed);
+
+                yield return ConnectToAPI();
+                yield break;
+            }
+            else
+            {
+                var responseJson = www.downloadHandler.text;
+                apiToken = JsonUtility.FromJson<TokenResponse>(responseJson).token;
+                LogManager.LogDebugOnly("API connected. Token received: " + apiToken, LogType.Bootstrap);
+                LogManager.Log("API connected.", LogType.Bootstrap);
+                UpdateStatus("Waiting status from API...");
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
     }
 
     private IEnumerator ConnectToWebSocket()
@@ -76,11 +118,37 @@ public class GameLoader : MonoBehaviour
 
         if (NetworkManager.Instance.HasError)
         {
+            bool retryPressed = false;
+
             UpdateStatus("Server Error");
-            PopupManager.Instance.Open(PopupType.NotServer);
+            PopupManager.Instance.Open(
+                PopupType.NotServer,
+                showRetry: true,
+                onRetry: () =>
+                {
+                    StartCoroutine(ConnectToWebSocket());
+                    UpdateStatus("Retrying WebSocket connection...");
+                    retryPressed = true;
+                });
+            yield return new WaitUntil(() => retryPressed);
+
+            yield return ConnectToWebSocket();
             yield break;
         }
 
+        if (!string.IsNullOrEmpty(apiToken))
+        {
+            var authMessage = new WebSocketAuthMessage
+            {
+                type = "auth",
+                token = apiToken
+            };
+            string authJson = JsonUtility.ToJson(authMessage);
+            NetworkManager.Instance.Send(authJson);
+        }
+
+        UpdateStatus("Waiting status from WebSocket...");
+        yield return new WaitForSeconds(0.5f);
         LogManager.Log("WebSocket connected.", LogType.Bootstrap);
     }
 
@@ -91,5 +159,18 @@ public class GameLoader : MonoBehaviour
             statusText.text = text;
             LogManager.Log($"[GameLoader] {text}", LogType.Bootstrap);
         }
+    }
+
+    [System.Serializable]
+    private class TokenResponse
+    {
+        public string token;
+    }
+
+    [System.Serializable]
+    private class WebSocketAuthMessage
+    {
+        public string type;
+        public string token;
     }
 }

@@ -20,4 +20,8 @@ module.exports = {
   leaveQueue: Joi.object({
     type: Joi.string().valid("leaveQueue").required(),
   }),
+  auth: Joi.object({
+    type: Joi.string().valid("auth").required(),
+    token: Joi.string().required(),
+  }),
 };
