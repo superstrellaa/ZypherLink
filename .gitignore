@@ -9,6 +9,9 @@ yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
 
+# Package
+package-lock.json
+
 # Custom for Backend
 replays/
 

@@ -65,6 +65,7 @@ public class ConsoleManager : MonoBehaviour
 
     private void Update()
     {
+        HandleSwitchKey();
         HandleCommandHistory();
         HandleArrowKeys();
     }
@@ -109,10 +110,23 @@ public class ConsoleManager : MonoBehaviour
             consoleButton.SetActive(true);
             consoleButton.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() =>
             {
-                console.SetActive(!console.activeSelf);
+                if (!console.activeSelf)
+                {
+                    prevGUIState = GUIManager.Instance.IsGUIOpen;
 
-                if (console.activeSelf)
+                    console.SetActive(true);
+                    GUIManager.Instance.SetGUIOpen(true);
                     consoleInput.ActivateInputField();
+                }
+                else
+                {
+                    console.SetActive(false);
+
+                    GUIManager.Instance.SetGUIOpen(prevGUIState && PlayerManager.Instance.CurrentState == PlayerState.Playing);
+
+                    if (!prevGUIState)
+                        CursorManager.Instance.SetCursor(CursorType.Hidden);
+                }
             });
         }
         else
@@ -219,6 +233,29 @@ public class ConsoleManager : MonoBehaviour
         for (int i = 0; i < currentEntries.Count; i++)
         {
             currentEntries[i].SetSelected(i == selectedIndex);
+        }
+    }
+
+    private bool prevGUIState;
+
+    private void HandleSwitchKey()
+    {
+        if (Input.GetKeyDown(KeyCode.BackQuote))
+        {
+            if (!console.activeSelf)
+            {
+                prevGUIState = GUIManager.Instance.IsGUIOpen;
+
+                console.SetActive(true);
+                GUIManager.Instance.SetGUIOpen(true);
+                consoleInput.ActivateInputField();
+            }
+            else
+            {
+                console.SetActive(false);
+
+                GUIManager.Instance.SetGUIOpen(prevGUIState && PlayerManager.Instance.CurrentState == PlayerState.Playing);
+            }
         }
     }
 

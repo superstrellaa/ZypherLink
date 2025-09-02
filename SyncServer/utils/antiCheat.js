@@ -1,9 +1,12 @@
 const ConfigManager = require("../managers/configManager");
-const { MAX_TELEPORT_DISTANCE, MAX_VELOCITY } = ConfigManager.game;
+const { MAX_TELEPORT_DISTANCE, MAX_VELOCITY, MAX_ROTATION_DELTA } =
+  ConfigManager.game;
+
 const playerLastState = new Map();
 
 function isMoveSuspicious(uuid, newState) {
   const last = playerLastState.get(uuid);
+
   if (!last) {
     playerLastState.set(uuid, { ...newState });
     return false;
@@ -13,7 +16,6 @@ function isMoveSuspicious(uuid, newState) {
   const dy = newState.y - last.y;
   const dz = newState.z - last.z;
   const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-
   if (dist > MAX_TELEPORT_DISTANCE) return true;
 
   const vxAbs = Math.abs(newState.vx);
@@ -22,8 +24,9 @@ function isMoveSuspicious(uuid, newState) {
   if (vxAbs > MAX_VELOCITY || vyAbs > MAX_VELOCITY || vzAbs > MAX_VELOCITY)
     return true;
 
-  const rotDiff = Math.abs(newState.rotationY - last.rotationY);
-  if (rotDiff > 180) return true;
+  let rotDiff = Math.abs(newState.rotationY - last.rotationY) % 360;
+  if (rotDiff > 180) rotDiff = 360 - rotDiff;
+  if (rotDiff > MAX_ROTATION_DELTA) return true;
 
   playerLastState.set(uuid, { ...newState });
   return false;

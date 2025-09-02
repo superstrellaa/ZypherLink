@@ -11,6 +11,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
+    "postinstall": "prisma generate",
     "dev": "nodemon index.js",
     "linux:logs": "tail -f ./logs/server-*.log",
     "linux:logs:today": "tail -f ./logs/server-$(date +%Y-%m-%d).log",

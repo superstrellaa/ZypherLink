@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { randomUUID } = require("crypto");
 const prisma = require("../db/client");
 const logger = require("../utils/logger");
 
@@ -7,7 +8,8 @@ const JWT_SECRET = process.env.JWT_SECRET;
 async function login(req, res) {
   try {
     const ip = req.ip;
-    const token = jwt.sign({ ip }, JWT_SECRET, { expiresIn: "15m" });
+    const uuid = randomUUID();
+    const token = jwt.sign({ ip, uuid }, JWT_SECRET, { expiresIn: "15m" });
 
     const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
 

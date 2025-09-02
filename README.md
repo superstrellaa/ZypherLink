@@ -7,12 +7,15 @@
   <img src="https://img.shields.io/github/languages/top/superstrellaa/ZypherLink" alt="Top Language">
 </p>
 
-# ZypherLink
+# ZypherLink (WIP)
 
 **ZypherLink** is a modern, open-source multiplayer framework for Unity, designed for low-latency, scalable, and secure real-time games. It consists of:
 
 - **SyncServer**: A robust Node.js WebSocket backend for authoritative multiplayer logic, replay logging, anti-cheat, and more.
+- **SyncAPI**: A robust API backend maded in ExpressJS for JWT-Auth, versions check and admin messages.
 - **ZeroPing**: A Unity C# client example for rapid prototyping and integration with SyncServer using **NativeWebSocket**
+
+> ZypherLink still in progress and is continues testing, the actual source-code can include bugs or lack of optimization
 
 ---
 
@@ -31,60 +34,72 @@
 
 ```
 ZypherLink/
+├── SyncAPI/         # Node.js backend API in ExpressJS
 ├── SyncServer/      # Node.js backend (WebSocket server)
-│   ├── config/      # Config files (game, rateLimit, server, logger)
-│   ├── core/        # Server entrypoint
-│   ├── handlers/    # Message handlers (dynamic, validated)
-│   ├── managers/    # Player, room, matchmaking managers
-│   ├── models/      # Room, Player models
-│   ├── utils/       # Anti-cheat, replay logger, uuid, etc.
+│   ├── config/      # Config files (game, rateLimit, server)
 │   ├── replays/     # Replay logs (auto-generated)
 │   ├── logs/        # Server logs (auto-generated)
-│   ├── Dockerfile   # Docker build file
 │   ├── ...
 ├── Tests-WebSocket/ # Node.js test clients and panels
-│   └── exampleClient.js
+│   └── exampleClient.js # Node.js Script for testing (deprecated and unused)
 ├── ZeroPing/        # Unity client example (see folder for details)
-├── docker-compose.yml
 ├── README.md
 └── ...
 ```
 
 ---
 
-## Quick Start (SyncServer)
+## Quick Start | Linux | SyncAPI
 
 ```bash
 # 1. Clone the repo
 $ git clone https://github.com/superstrellaa/ZypherLink.git
-$ cd ZypherLink
+$ cd ZypherLink/SyncAPI
 
 # 2. Copy and edit environment variables
-$ cp SyncServer/.env.example SyncServer/.env
+$ cp .env.example .env
+$ nano .env
+
+# 3. Build and run with Docker (recommended)
+$ docker-compose up --build
+
+# Or run locally
+$ npm install
+$ npm start
+
+```
+
+---
+
+## Quick Start | Linux | SyncServer
+
+```bash
+# 1. Clone the repo
+$ git clone https://github.com/superstrellaa/ZypherLink.git
+$ cd ZypherLink/SyncServer
+
+# 2. Copy and edit environment variables
+$ cp .env.example .env
+$ nano .env
 
 # 3. Build and run with Docker (recommended)
 $ docker-compose up --build
 
 # Or run locally (Node.js 18+ required)
-$ cd SyncServer
 $ npm install
 $ npm start
 ```
 
 ---
 
-## Unity Client (ZeroPing)
+## Quick Start | Unity | ZeroPing
 
-- See the `ZeroPing/` folder for a plug-and-play Unity(6.0) example.
-- Connects to SyncServer using the documented message protocol.
-
----
-
-## Documentation
-
-- SyncServer Docs: [`SyncServer/docs/README.md`](SyncServer/docs/README.md)
-- Configuration: see files in `SyncServer/config/`
-- Test panel: [`Tests-WebSocket/exampleClient.js`](Tests-WebSocket/exampleClient.js)
+1. Clone the repository with git or downloading .zip
+2. Download Unity 6 from [Unity Hub](https://unity.com/es/download)
+3. Go to Add > Add project from disk
+4. Select ZeroPing folder and open it
+5. Once opened, start SyncServer and SyncAPI projects
+6. Now you can press Play and see how functions
 
 ---
 

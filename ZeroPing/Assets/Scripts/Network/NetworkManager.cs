@@ -21,12 +21,42 @@ public class PlayerInfo
 
 public class NetworkManager : Singleton<NetworkManager>
 {
-    [Header("WebSocket Settings")]
-    [SerializeField] private string serverUrl = "ws://localhost:3000";
+    public enum EnvironmentType { Development, Production }
+
+    [Header("Environment Selector")]
+    [SerializeField] private EnvironmentType environment = EnvironmentType.Development;
+
+    [Header("Development Settings")]
+    [SerializeField] private string devServerUrl = "ws://localhost:3000";
+    [SerializeField] private string devApiUrl = "http://localhost:3001";
+
+    [Header("Production Settings")]
+    [SerializeField] private string prodServerUrl = "ws://31.57.96.123:25631";
+    [SerializeField] private string prodApiUrl = "http://31.57.96.123:25607";
+
+    public string serverUrl
+    {
+        get
+        {
+            return environment == EnvironmentType.Development ? devServerUrl : prodServerUrl;
+        }
+    }
+
+    public string apiUrl
+    {
+        get
+        {
+            return environment == EnvironmentType.Development ? devApiUrl : prodApiUrl;
+        }
+    }
 
     private WebSocket socket;
 
+    public event Action OnSpawnsReady;
+
     private float pingInterval = 10f;
+    private double lastPingSent;
+    private List<double> rttSamples = new List<double>();
 
     public bool IsConnected => socket != null && socket.State == WebSocketState.Open;
     public bool HasError { get; private set; } = false;
@@ -87,7 +117,7 @@ public class NetworkManager : Singleton<NetworkManager>
                 LogManager.Log($"WebSocket closed with code {code}", LogType.Warning);
                 HasError = true;
 
-                if (PlayerManager.Instance.CurrentState != PlayerState.Loading)
+                if (PlayerManager.Instance != null && PlayerManager.IsAlive && PlayerManager.Instance.CurrentState != PlayerState.Loading)
                 {
                     PlayerManager.Instance.SetState(PlayerState.Loading);
                     SceneTransitionManager.Instance.TransitionTo("sc_LoadingGame", withFade: false);
@@ -102,6 +132,7 @@ public class NetworkManager : Singleton<NetworkManager>
     {
         if (IsConnected)
         {
+            lastPingSent = Time.timeAsDouble;
             await socket.SendText("{\"type\":\"ping\"}");
             LogManager.LogDebugOnly("Ping sent to server.", LogType.Network);
         }
@@ -162,4 +193,37 @@ public class NetworkManager : Singleton<NetworkManager>
 
         LogManager.LogDebugOnly($"Match {MatchId} on map '{MapName}' stored. Players: {players.Count}", LogType.Network);
     }
+
+    public void MarkSpawnsReady()
+    {
+        OnSpawnsReady?.Invoke();
+    }
+
+    public double LastPingSent => lastPingSent;
+
+    public void AddRttSample(double rtt)
+    {
+        rttSamples.Add(rtt);
+        if (rttSamples.Count > 50)
+            rttSamples.RemoveAt(0);
+    }
+
+    public double GetAverageRtt()
+    {
+        if (rttSamples.Count == 0) return 0;
+        double sum = 0;
+        foreach (var r in rttSamples) sum += r;
+        return sum / rttSamples.Count;
+    }
+
+    public double GetJitter()
+    {
+        if (rttSamples.Count == 0) return 0;
+        double avg = GetAverageRtt();
+        double variance = 0;
+        foreach (var r in rttSamples) variance += Math.Pow(r - avg, 2);
+        variance /= rttSamples.Count;
+        return Math.Sqrt(variance);
+    }
+
 }

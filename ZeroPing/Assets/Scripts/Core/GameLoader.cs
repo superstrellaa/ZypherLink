@@ -22,7 +22,7 @@ public class GameLoader : MonoBehaviour
 
     void OnDestroy()
     {
-        if (gameLoaderPanel != null)
+        if (gameLoaderPanel != null && GUIManager.Instance != null)
         {
             GUIManager.Instance.ShowPanel(gameLoaderPanel, false);
         }
@@ -32,7 +32,12 @@ public class GameLoader : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         UpdateStatus("Initializing Game Loader...");
+        yield return new WaitForSeconds(1f);
+        gameLoaderPanel.gameObject.transform.Find("VersionText").GetComponent<TMP_Text>().text = $"v{Application.version}";
         LogManager.Log("Game Loader initialized.", LogType.System);
+
+        UpdateStatus("Checking Game Version...");
+        yield return CheckGameVersion();
 
         UpdateStatus("Connecting to API...");
         yield return ConnectToAPI();
@@ -53,9 +58,73 @@ public class GameLoader : MonoBehaviour
         PlayerManager.Instance.SetState(PlayerState.Lobby);
     }
 
+    private IEnumerator CheckGameVersion()
+    {
+        yield return new WaitForSeconds(1f);
+
+        using (UnityWebRequest www = UnityWebRequest.Get($"{NetworkManager.Instance.apiUrl}/game/version"))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                LogManager.Log($"Version Check Error: {www.error}", LogType.Error);
+                UpdateStatus("Failed to check version.");
+
+                bool retryPressed = false;
+
+                PopupManager.Instance.Open(
+                    PopupType.NotServer,
+                    showRetry: true,
+                    onRetry: () =>
+                    {
+                        UpdateStatus("Retrying version check...");
+                        retryPressed = true;
+                    });
+
+                yield return new WaitUntil(() => retryPressed);
+
+                yield return CheckGameVersion();
+                yield break;
+            }
+
+            var responseJson = www.downloadHandler.text;
+            VersionResponse versionResponse = JsonUtility.FromJson<VersionResponse>(responseJson);
+
+            string serverVersion = versionResponse.version.TrimStart('v');
+            string clientVersion = Application.version;
+
+            LogManager.Log($"Server version: {serverVersion}, Client version: {clientVersion}", LogType.Bootstrap);
+
+            if (serverVersion != clientVersion)
+            {
+                UpdateStatus("Different Game Version.");
+
+                bool retryPressed = false;
+
+                PopupManager.Instance.Open(
+                    PopupType.DifferentVersion,
+                    showRetry: true,
+                    onRetry: () =>
+                    {
+                        UpdateStatus("Retrying version check...");
+                        retryPressed = true;
+                    });
+
+                yield return new WaitUntil(() => retryPressed);
+
+                yield return CheckGameVersion();
+                yield break;
+            }
+
+            UpdateStatus("Version OK.");
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
     private IEnumerator ConnectToAPI()
     {
-        using (UnityWebRequest www = new UnityWebRequest("http://localhost:3001/auth/login", "POST"))
+        using (UnityWebRequest www = new UnityWebRequest($"{NetworkManager.Instance.apiUrl}/auth/login", "POST"))
         {
             www.uploadHandler = new UploadHandlerRaw(new byte[0]);
             www.downloadHandler = new DownloadHandlerBuffer();
@@ -172,5 +241,11 @@ public class GameLoader : MonoBehaviour
     {
         public string type;
         public string token;
+    }
+
+    [System.Serializable]
+    private class VersionResponse
+    {
+        public string version;
     }
 }

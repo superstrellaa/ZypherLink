@@ -6,6 +6,7 @@ const prisma = require("./db/client");
 
 const authRoutes = require("./routes/auth");
 const adminRoutes = require("./routes/admin");
+const gameRoutes = require("./routes/game");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -24,6 +25,7 @@ app.use((req, res, next) => {
 
 app.use("/auth", authRoutes);
 app.use("/admin", adminRoutes);
+app.use("/game", gameRoutes);
 
 app.listen(PORT, () => {
   logger.info(`SyncAPI running`, { port: PORT });

@@ -42,16 +42,16 @@ function sendStartGame(roomId) {
     ) {
       player.socket.send(
         JSON.stringify({
-          type: "startPositions",
-          positions,
-        })
-      );
-      player.socket.send(
-        JSON.stringify({
           type: "startGame",
           roomId,
           players,
           map: validMap.name,
+        })
+      );
+      player.socket.send(
+        JSON.stringify({
+          type: "startPositions",
+          positions,
         })
       );
     }

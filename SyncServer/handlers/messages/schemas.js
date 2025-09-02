@@ -20,6 +20,9 @@ module.exports = {
   leaveQueue: Joi.object({
     type: Joi.string().valid("leaveQueue").required(),
   }),
+  leaveRoom: Joi.object({
+    type: Joi.string().valid("leaveRoom").required(),
+  }),
   auth: Joi.object({
     type: Joi.string().valid("auth").required(),
     token: Joi.string().required(),

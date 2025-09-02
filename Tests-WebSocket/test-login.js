@@ -2,7 +2,7 @@ const fetch = require("node-fetch");
 
 async function testLogin() {
   const res = await fetch(
-    `http://localhost:${process.env.PORT || 3001}/auth/login`,
+    `http://31.57.96.123:25607/auth/login`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },

@@ -11,6 +11,8 @@ public class GUIManager : Singleton<GUIManager>
 
     public bool IsGUIOpen { get; private set; } = false;
 
+    public bool freezeMovement { get; private set; } = false;
+
     public void SetGUIOpen(bool value)
     {
         IsGUIOpen = value;
@@ -21,5 +23,10 @@ public class GUIManager : Singleton<GUIManager>
     {
         if (panel != null)
             panel.SetActive(active);
+    }
+
+    public void SetFreezeMovement(bool value)
+    {
+        freezeMovement = value;
     }
 }

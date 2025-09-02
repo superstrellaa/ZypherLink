@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,6 +10,8 @@ public class SceneTransitionManager : Singleton<SceneTransitionManager>
 
     private string targetScene;
     private string currentScene;
+
+    public static event Action<string> OnSceneLoaded;
 
     protected override void Awake()
     {
@@ -80,6 +83,8 @@ public class SceneTransitionManager : Singleton<SceneTransitionManager>
 
         LogManager.LogDebugOnly($"Unloading bridge scene: '{transitionSceneName}'", LogType.SceneManager);
         yield return SceneManager.UnloadSceneAsync(transitionSceneName);
+
+        OnSceneLoaded?.Invoke(currentScene);
 
         LogManager.Log("Scene transition complete.", LogType.SceneManager);
     }

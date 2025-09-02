@@ -1,5 +1,6 @@
 const path = require("path");
 const Joi = require("joi");
+const { MAX_ROTATION_DELTA } = require("../config/game");
 
 const schemas = {
   game: Joi.object({
@@ -7,6 +8,7 @@ const schemas = {
     TICK_RATE_MS: Joi.number().integer().min(1).required(),
     INACTIVITY_TIMEOUT_MS: Joi.number().integer().min(1000).required(),
     MAX_TELEPORT_DISTANCE: Joi.number().integer().min(1).required(),
+    MAX_ROTATION_DELTA: Joi.number().integer().min(1).max(180).required(),
     MAX_ROOMS: Joi.number().integer().min(1).required(),
   }),
   rateLimit: Joi.object({

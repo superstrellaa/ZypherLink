@@ -6,6 +6,8 @@ using UnityEngine;
 
 public static class MessageHandler
 {
+    private static float lastSendTime = 0f;
+
     public static void Handle(string json)
     {
         try
@@ -35,8 +37,18 @@ public static class MessageHandler
                     HandlePlayerDisconnected(obj);
                     break;
 
+                case "roomInactive":
+                    LogManager.LogDebugOnly("Room is inactive.", LogType.Network);
+                    CoroutineRunner.Instance.Run(HandleRoomInactiveEnum(obj.Value<string>("roomId")));
+                    break;
+
                 case "roomDeleted":
                     HandleRoomDeleted(obj);
+                    break;
+
+                case "roomLefted":
+                    ESCManager.Instance.ActionLeaveOk();
+                    LogManager.LogDebugOnly("Left room successfully.", LogType.Network);
                     break;
 
                 case "authSuccess":
@@ -52,7 +64,7 @@ public static class MessageHandler
                     break;
 
                 case "pong":
-                    LogManager.LogDebugOnly("Pong received from server.", LogType.Network);
+                    HandlePong();
                     break;
 
                 case "error":
@@ -69,6 +81,17 @@ public static class MessageHandler
         {
             LogManager.Log($"Failed to parse message: {ex.Message}", LogType.Error);
         }
+    }
+
+    private static void HandlePong()
+    {
+        double rtt = (Time.timeAsDouble - NetworkManager.Instance.LastPingSent) * 1000.0;
+        NetworkManager.Instance.AddRttSample(rtt);
+
+        double avg = NetworkManager.Instance.GetAverageRtt();
+        double jitter = NetworkManager.Instance.GetJitter();
+
+        LogManager.LogDebugOnly($"Ping: {rtt:F1} ms | Avg: {avg:F1} ms | Jitter: {jitter:F1} ms", LogType.Network);
     }
 
     private static void HandleInit(JObject msg)
@@ -135,17 +158,7 @@ public static class MessageHandler
     private static void HandleStartPositions(JObject msg)
     {
         var positionsToken = msg["positions"] as JObject;
-        if (positionsToken == null)
-        {
-            Debug.LogWarning("Positions token is not a JObject: " + msg["positions"]);
-            return;
-        }
-
-        if (NetworkManager.Instance.Players == null)
-        {
-            Debug.LogWarning("NetworkManager players list is null.");
-            return;
-        }
+        if (positionsToken == null) return;
 
         foreach (var kvp in positionsToken)
         {
@@ -161,11 +174,37 @@ public static class MessageHandler
             if (playerInfo != null)
             {
                 playerInfo.spawnPosition = new Vector3(x, y, z);
-                playerInfo.spawnRotation = Quaternion.identity; 
+                playerInfo.spawnRotation = Quaternion.identity;
             }
+            LogManager.LogDebugOnly($"Updated {uuid} spawn -> {playerInfo.spawnPosition}", LogType.Gameplay);
         }
 
+        NetworkManager.Instance.MarkSpawnsReady();
         LogManager.LogDebugOnly($"Start positions updated for {positionsToken.Count} players.", LogType.Gameplay);
+    }
+
+    public static void Move(Vector3 position, float rotationY, Vector3 velocity)
+    {
+        if (!NetworkManager.IsAlive || !NetworkManager.Instance.IsConnected) return;
+
+        if (Time.time - lastSendTime < 0.05f)
+            return;
+
+        lastSendTime = Time.time;
+
+        JObject moveMsg = new JObject
+        {
+            ["type"] = "move",
+            ["x"] = position.x,
+            ["y"] = position.y,
+            ["z"] = position.z,
+            ["rotationY"] = rotationY,
+            ["vx"] = velocity.x,
+            ["vy"] = velocity.y,
+            ["vz"] = velocity.z
+        };
+
+        NetworkManager.Instance.Send(moveMsg.ToString());
     }
 
     private static void HandlePlayerMoved(JObject msg)
@@ -174,14 +213,29 @@ public static class MessageHandler
         float x = msg.Value<float>("x");
         float y = msg.Value<float>("y");
         float z = msg.Value<float>("z");
+        float rotationY = msg.Value<float>("rotationY");
+        float vx = msg.Value<float>("vx");
+        float vy = msg.Value<float>("vy");
+        float vz = msg.Value<float>("vz");
 
-        LogManager.LogDebugOnly($"Player {uuid} moved to ({x}, {y}, {z})", LogType.Gameplay);
+        Vector3 position = new Vector3(x, y, z);
+        Vector3 velocity = new Vector3(vx, vy, vz);
+
+        LogManager.LogDebugOnly($"Player {uuid} moved to {position} rotY({rotationY}) vel({velocity})", LogType.Gameplay);
+
+        if (uuid != PlayerManager.Instance.UUID)
+        {
+            MapManager.Instance.UpdateRemotePlayer(uuid, position, rotationY, velocity);
+        }
     }
-    
+
     private static void HandlePlayerDisconnected(JObject msg)
     {
         string uuid = msg.Value<string>("uuid");
         LogManager.Log($"Player {uuid} disconnected.", LogType.Gameplay);
+
+        if (MapManager.IsAlive)
+            MapManager.Instance.RemoveRemotePlayer(uuid);
     }
 
     private static void HandleRoomDeleted(JObject msg)
@@ -193,13 +247,36 @@ public static class MessageHandler
 
     private static IEnumerator HandleRoomDeletedEnum(string roomId)
     {
-        yield return new WaitForSeconds(1f);
-        SceneTransitionManager.Instance.TransitionTo("sc_Lobby", withFade: false);
         PlayerManager.Instance.SetState(PlayerState.Lobby);
+        ESCManager.Instance.CloseESCMenu();
+        yield return new WaitForSeconds(1f);
+
+        if (MapManager.IsAlive)
+            MapManager.Instance.ResetMapState();
+
+        SceneTransitionManager.Instance.TransitionTo("sc_Lobby", withFade: false);
         GUIManager.Instance.SetGUIOpen(true);
+        PlayerManager.Instance.gameObject.transform.Find("Player").gameObject.transform.position = new Vector3(0, 0, 0);
         GUIManager.Instance.ShowPanel(GUIManager.Instance.lobbyMatchFound, false);
         yield return new WaitForSeconds(1f);
         PopupManager.Instance.Open(PopupType.RoomDeleted);
+    }
+
+    private static IEnumerator HandleRoomInactiveEnum(string roomId)
+    {
+        PlayerManager.Instance.SetState(PlayerState.Lobby);
+        ESCManager.Instance.CloseESCMenu();
+        yield return new WaitForSeconds(1f);
+
+        if (MapManager.IsAlive)
+            MapManager.Instance.ResetMapState();
+
+        SceneTransitionManager.Instance.TransitionTo("sc_Lobby", withFade: false);
+        GUIManager.Instance.SetGUIOpen(true);
+        PlayerManager.Instance.gameObject.transform.Find("Player").gameObject.transform.position = new Vector3(0, 0, 0);
+        GUIManager.Instance.ShowPanel(GUIManager.Instance.lobbyMatchFound, false);
+        yield return new WaitForSeconds(1f);
+        PopupManager.Instance.Open(PopupType.RoomInactive);
     }
 
     private static void HandleAdminMessage(JObject msg)
