@@ -17,6 +17,8 @@ public class ThirdPersonCamera : MonoBehaviour
     private Vector3 currentPosition;
     private Quaternion currentRotation;
 
+    public LayerMask collisionMask;
+
     void Start()
     {
         // Cursor.lockState = CursorLockMode.Locked;
@@ -42,7 +44,7 @@ public class ThirdPersonCamera : MonoBehaviour
         Ray ray = new Ray(targetPosition, desiredCameraPos - targetPosition);
         float adjustedDistance = distance;
 
-        if (Physics.Raycast(ray, out RaycastHit hit, distance))
+        if (Physics.Raycast(ray, out RaycastHit hit, distance, collisionMask))
         {
             adjustedDistance = hit.distance - 0.1f;
         }

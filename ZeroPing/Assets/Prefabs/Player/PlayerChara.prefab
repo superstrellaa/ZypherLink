@@ -609,6 +609,9 @@ MonoBehaviour:
   minPitch: -30
   maxPitch: 60
   smoothSpeed: 30
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1 &8652705539083893535
 GameObject:
   m_ObjectHideFlags: 0
