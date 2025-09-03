@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/github/languages/top/superstrellaa/ZypherLink" alt="Top Language">
 </p>
 
-# ZypherLink (WIP)
+# ZypherLink
 
 **ZypherLink** is a modern, open-source multiplayer framework for Unity, designed for low-latency, scalable, and secure real-time games. It consists of:
 
@@ -15,7 +15,7 @@
 - **SyncAPI**: A robust API backend maded in ExpressJS for JWT-Auth, versions check and admin messages.
 - **ZeroPing**: A Unity C# client example for rapid prototyping and integration with SyncServer using **NativeWebSocket**
 
-> ZypherLink still in progress and is continues testing, the actual source-code can include bugs or lack of optimization
+> ZypherLink still in progress but, if this doesn't recibes more popularity I can't update for new content, sorry. Oooorrrrr, you can pester me in my DM in discord: superstrella#0110
 
 ---
 
