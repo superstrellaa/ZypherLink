@@ -273,7 +273,7 @@ PrefabInstance:
       objectReference: {fileID: 663035228}
     - target: {fileID: 5764556764221747454, guid: d967d0dfcced50e4cb1e2ca67a2de096, type: 3}
       propertyPath: m_VersionIndex
-      value: 5111
+      value: 5117
       objectReference: {fileID: 0}
     - target: {fileID: 6684855075693827989, guid: d967d0dfcced50e4cb1e2ca67a2de096, type: 3}
       propertyPath: m_IsActive
@@ -324,8 +324,8 @@ MonoBehaviour:
   environment: 1
   devServerUrl: ws://localhost:3000
   devApiUrl: http://localhost:3001
-  prodServerUrl: ws://31.57.96.123:25631
-  prodApiUrl: http://31.57.96.123:25607
+  prodServerUrl: ws://213.21.245.123:25631
+  prodApiUrl: http://213.21.245.123:25607
 --- !u!4 &301920032
 Transform:
   m_ObjectHideFlags: 0

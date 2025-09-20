@@ -85,7 +85,10 @@ public class ESCManager : MonoBehaviour
 
         SceneTransitionManager.Instance.TransitionTo("sc_Lobby", withFade: true);
         GUIManager.Instance.SetGUIOpen(true);
+        PlayerManager.Instance.gameObject.transform.Find("Player").gameObject.GetComponent<ThirdPersonMovement>().enabled = false;
         PlayerManager.Instance.gameObject.transform.Find("Player").gameObject.transform.position = new Vector3(0, 0, 0);
+        PlayerManager.Instance.gameObject.transform.Find("Player").gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+        PlayerManager.Instance.gameObject.transform.Find("Player").gameObject.GetComponent<ThirdPersonMovement>().enabled = true;
         GUIManager.Instance.ShowPanel(GUIManager.Instance.lobbyMatchFound, false);
     }
 

@@ -33,6 +33,10 @@ public static class MessageHandler
                     HandlePlayerMoved(obj);
                     break;
 
+                case "playerJoin":
+                    HandlePlayerJoin(obj);
+                    break;
+
                 case "playerDisconnected":
                     HandlePlayerDisconnected(obj);
                     break;
@@ -229,6 +233,14 @@ public static class MessageHandler
         }
     }
 
+    private static void HandlePlayerJoin(JObject msg)
+    {
+        string uuid = msg.Value<string>("uuid");
+        LogManager.Log($"Player {uuid} joined the game.", LogType.Gameplay);
+        if (MapManager.IsAlive)
+            MapManager.Instance.AddRemotePlayer(uuid);
+    }
+
     private static void HandlePlayerDisconnected(JObject msg)
     {
         string uuid = msg.Value<string>("uuid");
@@ -273,7 +285,10 @@ public static class MessageHandler
 
         SceneTransitionManager.Instance.TransitionTo("sc_Lobby", withFade: false);
         GUIManager.Instance.SetGUIOpen(true);
+        PlayerManager.Instance.gameObject.transform.Find("Player").gameObject.GetComponent<ThirdPersonMovement>().enabled = false;
         PlayerManager.Instance.gameObject.transform.Find("Player").gameObject.transform.position = new Vector3(0, 0, 0);
+        PlayerManager.Instance.gameObject.transform.Find("Player").gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+        PlayerManager.Instance.gameObject.transform.Find("Player").gameObject.GetComponent<ThirdPersonMovement>().enabled = true;
         GUIManager.Instance.ShowPanel(GUIManager.Instance.lobbyMatchFound, false);
         yield return new WaitForSeconds(1f);
         PopupManager.Instance.Open(PopupType.RoomInactive);

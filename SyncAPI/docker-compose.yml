@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  syncapi:
+    build: .
+    container_name: syncapi
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "3001:3001"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://postgres:testpassword@db:5432/syncapi?schema=public
+  db:
+    image: postgres:15-alpine
+    container_name: syncapi-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: syncapi
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: testpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:

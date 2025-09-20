@@ -5,4 +5,5 @@ module.exports = {
   MAX_TELEPORT_DISTANCE: 50,
   MAX_ROTATION_DELTA: 90,
   MAX_ROOMS: 100,
+  roomUnlimited: true,
 };

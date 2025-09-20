@@ -21,6 +21,14 @@ module.exports = {
       if (typeof roomManager.removePlayerFromRoom === "function") {
         roomManager.removePlayerFromRoom(uuid);
       }
+      if (playerManager.getPlayer) {
+        const player = playerManager.getPlayer(uuid);
+        if (player) {
+          player.position = { x: 0, y: 0, z: 0 };
+          player.rotationY = 0;
+          player.velocity = { vx: 0, vy: 0, vz: 0 };
+        }
+      }
       Logger.info("Player left room", {
         player: uuid,
         context: "leaveRoom",
@@ -28,7 +36,7 @@ module.exports = {
       });
       socket.send(JSON.stringify({ type: "roomLefted", roomId: room.roomId }));
 
-      if (room.players.size === 1) {
+      if (room.roomId !== "unlimited-room" && room.players.size === 1) {
         const lastUUID = Array.from(room.players)[0];
         const lastSocket = playerManager.getSocket(lastUUID);
         if (lastSocket && lastSocket.readyState === lastSocket.OPEN) {

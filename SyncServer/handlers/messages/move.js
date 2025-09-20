@@ -47,13 +47,13 @@ module.exports = {
         vz: message.vz,
       });
     }
-
+    /* 
     logger.info("Player moved", {
       player: uuid,
       context: "move",
       ...message,
       roomId,
-    });
+    }); */
 
     roomManager.broadcastToRoom(uuid, {
       type: "playerMoved",

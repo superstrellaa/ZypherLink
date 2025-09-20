@@ -18,7 +18,11 @@ public class MapManager : Singleton<MapManager>
         public float lastUpdateTime;
     }
 
-    private Dictionary<string, RemotePlayerState> playerStates = new();
+    private Dictionary<string, RemotePlayerState> playerStates = new Dictionary<string, RemotePlayerState>();
+
+    private HashSet<string> pendingInstantiate = new HashSet<string>();
+
+    private const float k_SpawnThreshold = 0.0001f;
 
     private void OnEnable()
     {
@@ -40,6 +44,7 @@ public class MapManager : Singleton<MapManager>
         if (sceneReady)
         {
             LogManager.LogDebugOnly($"MapManager detected scene load: {sceneName}", LogType.SceneManager);
+            TryInstantiatePending();
             TrySetup();
         }
     }
@@ -47,6 +52,7 @@ public class MapManager : Singleton<MapManager>
     private void HandleSpawnsReady()
     {
         LogManager.Log("Spawns ready signal received.", LogType.Gameplay);
+        TryInstantiatePending();
         TrySetup();
     }
 
@@ -56,7 +62,7 @@ public class MapManager : Singleton<MapManager>
         if (players == null || players.Count == 0) return false;
         foreach (var p in players)
         {
-            if (p.spawnPosition.sqrMagnitude > 0.0001f) return true;
+            if (p.spawnPosition.sqrMagnitude > k_SpawnThreshold) return true;
         }
         return false;
     }
@@ -92,35 +98,59 @@ public class MapManager : Singleton<MapManager>
             }
             else
             {
-                if (remotePlayerPrefab == null)
+                if (remotePlayers.TryGetValue(p.uuid, out var existing) && existing != null)
                 {
-                    LogManager.Log("remotePlayerPrefab is null.", LogType.Error);
-                    continue;
+                    SceneManager.MoveGameObjectToScene(existing, activeScene);
+                    Teleport(existing, p.spawnPosition, p.spawnRotation);
                 }
-
-                var other = Instantiate(remotePlayerPrefab, p.spawnPosition, p.spawnRotation);
-                other.name = $"RemotePlayer_{p.uuid}";
-                SceneManager.MoveGameObjectToScene(other, activeScene);
-
-                if (!remotePlayers.ContainsKey(p.uuid))
-                    remotePlayers.Add(p.uuid, other);
-
-                if (!playerStates.ContainsKey(p.uuid))
-                    playerStates[p.uuid] = new RemotePlayerState
+                else
+                {
+                    if (p.spawnPosition.sqrMagnitude > k_SpawnThreshold)
                     {
-                        targetPos = p.spawnPosition,
-                        targetRot = p.spawnRotation
-                    };
+                        InstantiateRemotePlayer(p.uuid, p.spawnPosition, p.spawnRotation, activeScene);
+                        pendingInstantiate.Remove(p.uuid);
+                    }
+                    else
+                    {
+                        pendingInstantiate.Add(p.uuid);
+                        if (!playerStates.ContainsKey(p.uuid))
+                            playerStates[p.uuid] = new RemotePlayerState { targetPos = Vector3.zero, targetRot = Quaternion.identity, lastUpdateTime = Time.time };
+                    }
+                }
             }
         }
 
         LogManager.LogDebugOnly("Map setup complete.", LogType.Gameplay);
     }
 
+    private void InstantiateRemotePlayer(string uuid, Vector3 pos, Quaternion rot, Scene targetScene)
+    {
+        if (remotePlayers.ContainsKey(uuid) && remotePlayers[uuid] != null)
+        {
+            LogManager.LogDebugOnly($"InstantiateRemotePlayer skipped: already exists {uuid}.", LogType.Gameplay);
+            return;
+        }
+
+        if (remotePlayerPrefab == null)
+        {
+            LogManager.Log("remotePlayerPrefab is null.", LogType.Error);
+            return;
+        }
+
+        var other = Instantiate(remotePlayerPrefab, pos, rot);
+        other.name = $"RemotePlayer_{uuid}";
+        SceneManager.MoveGameObjectToScene(other, targetScene);
+
+        remotePlayers[uuid] = other;
+
+        if (!playerStates.ContainsKey(uuid))
+            playerStates[uuid] = new RemotePlayerState { targetPos = pos, targetRot = rot, lastUpdateTime = Time.time };
+
+        LogManager.LogDebugOnly($"Remote player {uuid} instantiated in scene {targetScene.name}.", LogType.Gameplay);
+    }
+
     public void UpdateRemotePlayer(string uuid, Vector3 pos, float rotationY, Vector3 velocity)
     {
-        if (!remotePlayers.TryGetValue(uuid, out var playerGO)) return;
-
         if (!playerStates.TryGetValue(uuid, out var state))
         {
             state = new RemotePlayerState();
@@ -131,27 +161,93 @@ public class MapManager : Singleton<MapManager>
         state.targetRot = Quaternion.Euler(0, rotationY, 0);
         state.velocity = velocity;
         state.lastUpdateTime = Time.time;
+
+        if (!remotePlayers.ContainsKey(uuid))
+        {
+            pendingInstantiate.Add(uuid);
+        }
+    }
+
+    public void AddRemotePlayer(string uuid)
+    {
+        if (remotePlayers.ContainsKey(uuid) || pendingInstantiate.Contains(uuid)) return;
+
+        pendingInstantiate.Add(uuid);
+        playerStates[uuid] = new RemotePlayerState
+        {
+            targetPos = Vector3.zero,
+            targetRot = Quaternion.identity,
+            lastUpdateTime = Time.time
+        };
+
+        if (sceneReady)
+        {
+            var p = NetworkManager.Instance.Players.Find(x => x.uuid == uuid);
+            if (p != null && p.spawnPosition.sqrMagnitude > k_SpawnThreshold)
+            {
+                InstantiateRemotePlayer(uuid, p.spawnPosition, p.spawnRotation, SceneManager.GetActiveScene());
+                pendingInstantiate.Remove(uuid);
+            }
+        }
+
+        LogManager.LogDebugOnly($"Remote player {uuid} queued (pendingInstantiate).", LogType.Gameplay);
+    }
+
+    private void TryInstantiatePending()
+    {
+        if (!sceneReady || pendingInstantiate.Count == 0) return;
+        var activeScene = SceneManager.GetActiveScene();
+
+        foreach (var uuid in new List<string>(pendingInstantiate))
+        {
+            if (remotePlayers.TryGetValue(uuid, out var existing) && existing != null)
+            {
+                pendingInstantiate.Remove(uuid);
+                continue;
+            }
+
+            var p = NetworkManager.Instance.Players.Find(x => x.uuid == uuid);
+            if (p != null && p.spawnPosition.sqrMagnitude > k_SpawnThreshold)
+            {
+                InstantiateRemotePlayer(uuid, p.spawnPosition, p.spawnRotation, activeScene);
+                pendingInstantiate.Remove(uuid);
+                continue;
+            }
+
+            if (playerStates.TryGetValue(uuid, out var state) && state.targetPos.sqrMagnitude > k_SpawnThreshold)
+            {
+                InstantiateRemotePlayer(uuid, state.targetPos, state.targetRot, activeScene);
+                pendingInstantiate.Remove(uuid);
+                continue;
+            }
+        }
     }
 
     private void Update()
     {
-        foreach (var kvp in remotePlayers)
+        foreach (var kvp in new List<KeyValuePair<string, GameObject>>(remotePlayers))
         {
             var uuid = kvp.Key;
             var playerGO = kvp.Value;
 
+            if (playerGO == null) continue;
+
             if (!playerStates.TryGetValue(uuid, out var state)) continue;
 
-            float delta = (float)(Time.time - state.lastUpdateTime);
+            float delta = Time.time - state.lastUpdateTime;
             Vector3 predictedPos = state.targetPos + state.velocity * delta;
 
             playerGO.transform.position = Vector3.Lerp(playerGO.transform.position, predictedPos, Time.deltaTime * 15f);
             playerGO.transform.rotation = Quaternion.Slerp(playerGO.transform.rotation, state.targetRot, Time.deltaTime * 10f);
         }
+
+        TryInstantiatePending();
     }
 
     private void Teleport(GameObject go, Vector3 pos, Quaternion rot)
     {
+        if (go == null) return;
+
         if (go.TryGetComponent<CharacterController>(out var cc))
         {
             cc.enabled = false;
@@ -184,6 +280,8 @@ public class MapManager : Singleton<MapManager>
         if (playerStates.ContainsKey(uuid))
             playerStates.Remove(uuid);
 
+        pendingInstantiate.Remove(uuid);
+
         LogManager.Log($"Remote player {uuid} removed.", LogType.Gameplay);
     }
 
@@ -191,7 +289,7 @@ public class MapManager : Singleton<MapManager>
     {
         foreach (var p in NetworkManager.Instance.Players)
         {
-            bool isZero = p.spawnPosition.sqrMagnitude < 0.0001f;
+            bool isZero = p.spawnPosition.sqrMagnitude < k_SpawnThreshold;
             LogManager.Log(
                 $"Spawn -> uuid:{p.uuid} pos:{p.spawnPosition} rot:{p.spawnRotation.eulerAngles} isZero:{isZero}",
                 LogType.Gameplay
@@ -210,5 +308,6 @@ public class MapManager : Singleton<MapManager>
         }
         remotePlayers.Clear();
         playerStates.Clear();
+        pendingInstantiate.Clear();
     }
 }

@@ -7,6 +7,9 @@ function startRoomCleanup(
 ) {
   setInterval(() => {
     for (const [roomId, room] of matchmaking.rooms.entries()) {
+      if (roomId === "unlimited-room") {
+        continue;
+      }
       if (
         room.isEmpty() ||
         Date.now() - room.lastActivity > INACTIVITY_TIMEOUT_MS

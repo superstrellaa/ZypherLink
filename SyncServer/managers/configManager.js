@@ -10,6 +10,7 @@ const schemas = {
     MAX_TELEPORT_DISTANCE: Joi.number().integer().min(1).required(),
     MAX_ROTATION_DELTA: Joi.number().integer().min(1).max(180).required(),
     MAX_ROOMS: Joi.number().integer().min(1).required(),
+    roomUnlimited: Joi.boolean().default(false),
   }),
   rateLimit: Joi.object({
     RATE_LIMIT_WINDOW_MS: Joi.number().integer().min(1).required(),

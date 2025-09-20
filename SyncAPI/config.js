@@ -1,3 +1,3 @@
 module.exports = {
-  gameVersion: "v1.0.0",
+  gameVersion: "v1.1.0",
 };

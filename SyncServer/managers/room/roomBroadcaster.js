@@ -34,12 +34,12 @@ function broadcastToRoom(senderUUID, message) {
     sender: senderUUID,
     message,
   });
-  logger.info("Broadcast to room", {
+  /* logger.info("Broadcast to room", {
     context: "roomManager",
     sender: senderUUID,
     roomId,
     messageType: message.type,
-  });
+  }); */
 }
 
 module.exports = { broadcastToRoom };

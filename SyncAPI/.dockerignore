@@ -1,0 +1,13 @@
+# .dockerignore
+node_modules
+npm-debug.log
+dist
+logs
+.env
+.env.*
+.git
+.gitignore
+*.md
+*.log
+/tests
+/Tests-WebSocket
