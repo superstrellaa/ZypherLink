@@ -13,7 +13,7 @@ services:
     environment:
       - DATABASE_URL=postgresql://postgres:testpassword@db:5432/syncapi?schema=public
   db:
-    image: postgres:17-alpine
+    image: postgres:18-alpine
     container_name: syncapi-db
     restart: unless-stopped
     environment:
